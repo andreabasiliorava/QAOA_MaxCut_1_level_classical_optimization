@@ -11,5 +11,5 @@ def evaluate_C (z_str, edges):
     C = 0
     z = list(z_str)
     for edge in edges:
-        C += ((int(z[edge[0]])-int(z[edge[1]])**2)
+        C += (int(z[edge[0]])-int(z[edge[1]]))**2
     return C
