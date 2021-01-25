@@ -6,9 +6,8 @@ Created on Mon Jan 25 15:12:05 2021
 """
 
 
-
 #Define C
-def evaluate_C (z_str):
+def evaluate_C (z_str, edges):
     C = 0
     z = list(z_str)
     for edge in edges:
