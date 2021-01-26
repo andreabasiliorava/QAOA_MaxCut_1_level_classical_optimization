@@ -28,7 +28,7 @@ def initial_params (n_levels):
     Parameters:
         n_levels: choosen levels of the QAOA algorithm
     Returns:
-        an array with dims 2*n_levels 
+        an array with shape 2*n_levels 
     Raise:
         ValueError if number of vertices is less than 1"""
     if n_levels < 1:
@@ -45,7 +45,7 @@ def initial_state (n_vertices):
         an object of the Qobj class defined in qutip, tensor of n-qubits
     Raise:
         ValueError if number of levels is less than 1"""
-    if n_verices < 1:
+    if n_vertices < 1:
         raise ValueError('number of levels must be > 0, but is {}'.format(n_vertices))
     list_s = []
     i = 0
