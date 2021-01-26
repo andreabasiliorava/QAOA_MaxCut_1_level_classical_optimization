@@ -30,7 +30,7 @@ def initial_params (n_levels):
     Returns:
         an array with shape 2*n_levels 
     Raise:
-        ValueError if number of vertices is less than 1"""
+        ValueError if number of levels is less than 1"""
     if n_levels < 1:
         raise ValueError('number of levels must be > 0, but is {}'.format(n_levels))
     init_params = 0.01*np.random.rand(2,n_levels)
@@ -44,9 +44,9 @@ def initial_state (n_vertices):
     Returns:
         an object of the Qobj class defined in qutip, tensor of n-qubits
     Raise:
-        ValueError if number of levels is less than 1"""
+        ValueError if number of vertices is less than 1"""
     if n_vertices < 1:
-        raise ValueError('number of levels must be > 0, but is {}'.format(n_vertices))
+        raise ValueError('number of vertices must be > 0, but is {}'.format(n_vertices))
     list_s = []
     i = 0
     while i < n_vertices:
@@ -54,3 +54,33 @@ def initial_state (n_vertices):
         i += 1
     init_state = qu.tensor(list_s)
     return init_state
+
+#method to create a list that act as identity operator on a n-qubits state
+def n_qeye (n_vertices):
+    """This method generates an operatos that apply identity tensor on a state
+       of n-qubits
+    Parameters:
+        n_vertices: number of qubits the states is composed of
+    Returns:
+        a list of n_vertex elements, each is an operator of the qutip class Qobj
+    Raise:
+        ValueError if number of vertices is less than 1"""
+    if n_vertices < 1:
+        raise ValueError('number of vertices must be > 0, but is {}'.format(n_vertices))
+    n_qeye = qu.tensor([qu.qeye(2)]*L)
+    return n_qeye
+X = []
+for i in range(L):
+    X.append(qu.tensor([qu.qeye(2)]*i+[qu.sigmax()]+[qu.qeye(2)]*(L-i-1)))
+Y = []
+for i in range(L):
+    Y.append(qu.tensor([qu.qeye(2)]*i+[qu.sigmay()]+[qu.qeye(2)]*(L-i-1)))
+Z = []
+for i in range(L):
+    Z.append(qu.tensor([qu.qeye(2)]*i+[qu.sigmaz()]+[qu.qeye(2)]*(L-i-1)))
+P0 = []
+for i in range(L):
+    P0.append(qu.tensor([qu.qeye(2)]*i + [qu.ket('0').proj()] + [qu.qeye(2)]*(L-i-1))) 
+P1 = []
+for i in range(L):
+    P1.append(qu.tensor([qu.qeye(2)]*i + [qu.ket('1').proj()] + [qu.qeye(2)]*(L-i-1))) 
