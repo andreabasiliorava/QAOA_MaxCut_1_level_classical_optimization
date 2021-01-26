@@ -29,6 +29,11 @@ def test_evaluate_obj():
                           [(0,1),(0,2),(1,2),(2,3),(2,4),(3,4)]
                           )
     assert_equal(exp,obs)
+    exp = 4
+    obs = qaoa.evaluate_obj('0101',
+                          [(0,1),(1,2),(2,3),(3,0)]
+                          )
+    assert_equal(exp,obs)
     
 @given(n_levels=st.integers(1,5))
 def test_initial_params(n_levels):
@@ -41,7 +46,7 @@ def test_initial_params(n_levels):
 
 #in the given statement we've put max n_qubits for q. computers
 @given(n_vertices=st.integers(1,15))
-@settings(deadline=4000)
+@settings(deadline=None)
 def test_initial_state (n_vertices):
     #Initialazing the initial state
     state = qaoa.initial_state(n_vertices) 
@@ -73,6 +78,8 @@ def test_initial_state (n_vertices):
         obs = np.abs(state.full()[i][0])
         assert_equal(round(exp,15),round(obs,15))
         
+if __name__ == "main":
+    pass        
 
         
     

@@ -38,7 +38,7 @@ def initial_params (n_levels):
 
 #method to initialize initial state |s>
 def initial_state (n_vertices):
-    """This method initialize the intial state
+    """This method initialize the initial state
     Parameters:
         n_vertices: number of qubits the states is composed of
     Returns:

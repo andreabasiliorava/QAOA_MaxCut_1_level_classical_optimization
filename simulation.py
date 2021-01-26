@@ -5,7 +5,7 @@ Created on Mon Jan 25 13:09:06 2021
 @author: AndreaB.Rava
 """
 
-#libraries needed:
+import qaoa
 import numpy as np
 import matplotlib.pyplot as plt
 import qutip as qu
@@ -30,9 +30,11 @@ for edge in str_edges.split(';'):
 n_levels = 1
 
 #pick intial parameters 
-init_params = 0.01*np.random.rand(2,n_levels)
+init_params = qaoa.initial_params(n_levels)
 
 # initial state |s>:
+init_state = qaoa.initial_state(n_vertices)
+
 
 
 
