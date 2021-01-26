@@ -5,13 +5,7 @@ Created on Tue Jan 25 10:14:48 2021
 @author: AndreaB.Rava
 """
 
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Jan 25 15:12:05 2021
-
-@author: AndreaB.Rava
-"""
-#import numpy as np
+import numpy as np
 import qutip as qu
 
 #method to evaluate object function
@@ -28,6 +22,20 @@ def evaluate_obj (z_str, edges):
         obj += (int(z_list[edge[0]])-int(z_list[edge[1]]))**2
     return obj
 
+#method to pick initial parameters
+def initial_params (n_levels):
+    """This method generates randomly the intial parameters near zero
+    Parameters:
+        n_levels: choosen levels of the QAOA algorithm
+    Returns:
+        an array with dims 2*n_levels 
+    Raise:
+        ValueError if number of vertices is less than 1"""
+    if n_levels < 1:
+        raise ValueError('number of levels must be > 0, but is {}'.format(n_levels))
+    init_params = 0.01*np.random.rand(2,n_levels)
+    return init_params
+
 #method to initialize initial state |s>
 def initial_state (n_vertices):
     """This method initialize the intial state
@@ -36,9 +44,9 @@ def initial_state (n_vertices):
     Returns:
         an object of the Qobj class defined in qutip, tensor of n-qubits
     Raise:
-        ValueError if number of vertices is less than 1"""
-    if n_vertices < 1:
-        raise ValueError('number of qubits must be > 0, but is {}'.format(n_vertices))
+        ValueError if number of levels is less than 1"""
+    if n_verices < 1:
+        raise ValueError('number of levels must be > 0, but is {}'.format(n_vertices))
     list_s = []
     i = 0
     while i < n_vertices:
