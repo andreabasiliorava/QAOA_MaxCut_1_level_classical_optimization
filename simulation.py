@@ -12,6 +12,8 @@ import qutip as qu
 import configparser
 
 #main part of the code
+
+#take information of the graph
 config = configparser.ConfigParser()
 config.read('butterfly.txt')
 
@@ -23,6 +25,17 @@ n_vertices = int(str_n_vertices)
 edges = []
 for edge in str_edges.split(';'):
     edges.append((int(edge[1]),int(edge[3])))
+
+#choose QAOA-level
+n_levels = 1
+
+#pick intial parameters 
+init_params = 0.01*np.random.rand(2,n_levels)
+
+# initial state |s>:
+
+
+
 
 
 
