@@ -8,7 +8,7 @@ Created on Mon Jan 25 15:13:05 2021
 from nose.tools import assert_equal
 #import configuration
 import numpy as np
-#import qutip as qu
+import qutip as qu
 #import hypothesis
 from hypothesis import strategies as st
 from hypothesis import settings
@@ -44,12 +44,11 @@ def test_initial_params(n_levels):
     obs = params.shape
     assert_equal(exp,obs)
 
-#in the given statement we've put max n_qubits for q. computers
-@given(n_qubits=st.integers(1,15))
+@given(n_qubits=st.integers(1,10))
 @settings(deadline=None)
 def test_initial_state (n_qubits):
     #Initialazing the initial state
-    state = qaoa.initial_state(n_vertices) 
+    state = qaoa.initial_state(n_qubits) 
     #Test if the shape of the state is (2**n_qubits,1)
     exp = (2**n_qubits,1)
     obs = state.shape
@@ -80,7 +79,7 @@ def test_initial_state (n_qubits):
         obs = np.abs(state.full()[i][0])
         assert_equal(round(exp,15),round(obs,15))
         
-@given(n_qubuts=st.integers(1,5))
+@given(n_qubits=st.integers(1,5))
 def test_n_qeye(n_qubits):
     #generate a generic n-qubits state
     list_gen_state = []
