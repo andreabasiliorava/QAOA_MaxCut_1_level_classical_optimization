@@ -56,6 +56,26 @@ def initial_state(n_qubits):
     return init_state
 
 
+def generic_state(n_qubits):
+    """This method initialize the a genric n-qubits state\n
+    Parameters:\n
+        n_qubits: number of qubits the states is composed of\n
+    Returns:\n
+        an object of the Qobj class defined in qutip, tensor of n-qubits\n
+    Raise:\n
+        ValueError if number of qubits is less than 1"""
+    list_gen_state = []
+    i = 0
+    coeffs = np.random.random((2,n_qubits))
+    basis_elem = np.random.randint(0,2,(2,n_qubits))
+    while i < n_qubits:
+        gen_qubit = (coeffs[0][i]*qu.basis(2,basis_elem[0][i])
+                     + coeffs[1][i]*qu.basis(2,basis_elem[1][i])).unit()
+        list_gen_state.append(gen_qubit)
+        i += 1
+    gen_state = qu.tensor(list_gen_state)
+
+
 def n_qeye(n_qubits):
     """This method generates a tensor that apply identity on a state\n
        of n-qubits
