@@ -79,6 +79,23 @@ def test_initial_state (n_qubits):
         exp = 1/np.sqrt(2)**n_qubits
         obs = np.abs(state.full()[i][0])
         assert_equal(round(exp,15),round(obs,15))
+        
+@given(n_qubuts=st.integers(1,5))
+def test_n_qeye(n_qubits):
+    #generate a generic n-qubits state
+    list_gen_state = []
+    i = 0
+    coeffs = np.random.random((2,n_qubits))
+    basis_elem = np.random.randint(0,2,(2,n_qubits))
+    while i < n_qubits:
+        gen_qubit = coeffs[0][i]*qu.basis(2,basis_elem[0][i]) + coeffs[1][i]*qu.basis(2,basis_elem[1][i])
+        list_gen_state.append(gen_qubit)
+        i += 1
+    gen_state = qu.tensor(list_gen_state)
+    #Test is it remain the same after been applied to it n_qeye
+    exp = gen_state
+    obs = qaoa.n_qeye(n_qubits)*gen_state
+    assert_equal(exp,obs)
 
         
 if __name__ == "main":

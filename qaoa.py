@@ -28,7 +28,7 @@ def initial_params (n_levels):
     Parameters:
         n_levels: choosen levels of the QAOA algorithm
     Returns:
-        an array with shape 2*n_levels 
+        an array with shape 2*n_levels (gammas and betas) 
     Raise:
         ValueError if number of levels is less than 1"""
     if n_levels < 1:
