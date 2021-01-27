@@ -21,6 +21,7 @@ str_n_vertices = config.get('settings', 'n_vertices')
 str_edges = config.get('settings', 'edges')
 
 n_vertices = int(str_n_vertices)
+n_qubits = n_vertices
 
 edges = []
 for edge in str_edges.split(';'):
@@ -33,7 +34,7 @@ n_levels = 1
 init_params = qaoa.initial_params(n_levels)
 
 # initial state |s>:
-init_state = qaoa.initial_state(n_vertices)
+init_state = qaoa.initial_state(n_qubits)
 
 
 
