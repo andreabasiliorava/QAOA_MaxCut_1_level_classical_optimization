@@ -53,7 +53,7 @@ we perform a sequence of operations on our initial state:
 
 where the operators have the explicit forms
 
-![equation4](https://latex.codecogs.com/svg.latex?U_{B_l}%20=%20e^{-i\beta_lB}%20=%20\prod_{j=1}^n%20e^{-i\beta_l\sigma_x^j},%20\\%20U_{C_l}%20=%20e^{-i\gamma_lC}%20=%20\prod_{\text{edge%20(j,k)}}%20e^{-i\gamma_l(1-\sigma_z^j\sigma_z^k)/2})
+![equation4](https://latex.codecogs.com/gif.latex?U_{B_l}%20=%20e^{-i\beta_lB}%20=%20\prod_{j=1}^n%20e^{-i\beta_l\sigma_x^j},%20\\%20U_{C_l}%20=%20e^{-i\gamma_lC}%20=%20\prod_{\text{edge%20(j,k)}}%20e^{-i\gamma_l(1-\sigma_z^j\sigma_z^k)/2})
 
 In other words, we make $p$ layers of parametrized $U_bU_C$ gates.
 These can be implemented on a quantum circuit using the gates depicted below, up to an irrelevant constant
