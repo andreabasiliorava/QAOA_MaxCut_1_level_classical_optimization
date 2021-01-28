@@ -86,7 +86,7 @@ def n_sigmaz(n_qubits, qubit_pos):
     return list_n_sigmaz[qubit_pos]
 
 
-def n_proj_0(n_qubits, qubit_pos):
+def n_proj0(n_qubits, qubit_pos):
     """This method generates a tensor(Qobj) wich perform a single-qubit projection
         operation on basis state |0> on a state of n-qubits\n
     Parameters:\n
@@ -101,13 +101,13 @@ def n_proj_0(n_qubits, qubit_pos):
         raise ValueError('number of vertices must be > 0, but is {}'.format(n_qubits))
     if qubit_pos < 0 or qubit_pos > n_qubits-1:
         raise ValueError('qubit position must be > 0 or < n_qubits-1, but is {}'.format(qubit_pos))
-    list_n_proj_0 = []
+    list_n_proj0 = []
     for i in range(n_qubits):
-        list_n_proj_0.append(qu.tensor([qu.qeye(2)]*i+[qu.ket('0').proj()]+[qu.qeye(2)]*(n_qubits-i-1)))
-    return list_n_proj_0[qubit_pos]
+        list_n_proj0.append(qu.tensor([qu.qeye(2)]*i+[qu.ket('0').proj()]+[qu.qeye(2)]*(n_qubits-i-1)))
+    return list_n_proj0[qubit_pos]
 
 
-def n_proj_1(n_qubits, qubit_pos):
+def n_proj1(n_qubits, qubit_pos):
     """This method generates a tensor(Qobj) wich perform a single-qubit projection
         operation on basis state |1> on a state of n-qubits\n
     Parameters:\n
@@ -122,7 +122,7 @@ def n_proj_1(n_qubits, qubit_pos):
         raise ValueError('number of vertices must be > 0, but is {}'.format(n_qubits))
     if qubit_pos < 0 or qubit_pos > n_qubits-1:
         raise ValueError('qubit position must be > 0 or < n_qubits-1, but is {}'.format(qubit_pos))
-    list_n_proj_1 = []
+    list_n_proj1 = []
     for i in range(n_qubits):
-        list_n_proj_1.append(qu.tensor([qu.qeye(2)]*i+[qu.ket('1').proj()]+[qu.qeye(2)]*(n_qubits-i-1)))
-    return list_n_proj_1[qubit_pos]
+        list_n_proj1.append(qu.tensor([qu.qeye(2)]*i+[qu.ket('1').proj()]+[qu.qeye(2)]*(n_qubits-i-1)))
+    return list_n_proj1[qubit_pos]
