@@ -7,6 +7,7 @@ Created on Tue Jan 25 10:14:48 2021
 
 import numpy as np
 import qutip as qu
+import operators as op
 
 
 def evaluate_obj(z_str, edges):
@@ -54,6 +55,25 @@ def initial_state(n_qubits):
         i += 1
     init_state = qu.tensor(list_s)
     return init_state
+
+
+def mix_hamilt(n_qubits):
+    """This method generates a tensor that apply the mixing hamiltonian of the 
+        MaxCut problem on a state of n-qubits\n
+    Parameters:\n
+        n_qubits: number of qubits the states is composed of\n
+    Returns:\n
+        a tensor that apply the identity to a n-qubits state\n
+    Raise:\n
+        ValueError if number of qubits is less than 2"""
+    if n_qubits < 2:
+        raise ValueError('number of vertices must be > 1, but is {}'.format(n_qubits))
+    list_sigmax = []
+    for i in range(n_qubits):
+        list_sigmax.append(op.n_sigmax(n_qubits,i))
+    return sum(list_sigmax)
+
+
 
 
 
