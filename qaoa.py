@@ -97,10 +97,10 @@ def evolution_operator(n_qubits, edges, gammas, betas):
     This method generates a tensor that apply the evolution operator U of the 
         MaxCut problem on a state of n-qubits\n
     Parameters:\n
+        n_qubits: number of qubits is the n-qubits state among this operators acts on\n
+        edges: edges of the graph of the MaxCut that define the problem hamiltonian
         gammas: gamma parameters of the MaxCut\n
         betas: betas parameters of the MaxCut\n
-        mix_hamilt: mixing hamiltonian of the MaxCut\n
-        prob_hamilt: problem hamiltonia of the MaxCut\n
     Returns:\n
         a tensor that apply the evolution operator to a n-qubits state\n
     Raise:\n
@@ -119,10 +119,13 @@ def evolution_operator(n_qubits, edges, gammas, betas):
         raise ValueError('number of qubits must be > 1, but is {}'.format(n_qubits))
     evol_oper = n_qeye(n_qubits)
     for i in range(len(gammas)):
-        exp_mix_hamilt_i = (-complex(0,betas[i])*mix_hamilt(n_qubits)).expm()
-        exp_prob_hamilt_i = (-complex(0,gammas[i])*prob_hamilt(n_qubits, edges)).expm()
-        evol_oper = exp_mix_hamilt_i*exp_prob_hamilt_i*evol_oper
+        u_mix_hamilt_i = (-complex(0,betas[i])*mix_hamilt(n_qubits)).expm()
+        u_prob_hamilt_i = (-complex(0,gammas[i])*prob_hamilt(n_qubits, edges)).expm()
+        evol_oper = u_mix_hamilt_i*u_prob_hamilt_i*evol_oper
     return evol_oper
+
+
+
         
     
                              
