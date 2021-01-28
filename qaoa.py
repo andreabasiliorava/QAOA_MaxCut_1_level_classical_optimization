@@ -47,7 +47,7 @@ def initial_state(n_qubits):
     Raise:\n
         ValueError if number of qubits is less than 1"""
     if n_qubits < 1:
-        raise ValueError('number of vertices must be > 0, but is {}'.format(n_qubits))
+        raise ValueError('number of qubits must be > 0, but is {}'.format(n_qubits))
     list_s = []
     i = 0
     while i < n_qubits:
@@ -67,7 +67,7 @@ def mix_hamilt(n_qubits):
     Raise:\n
         ValueError if number of qubits is less than 2"""
     if n_qubits < 2:
-        raise ValueError('number of vertices must be > 1, but is {}'.format(n_qubits))
+        raise ValueError('number of qubits must be > 1, but is {}'.format(n_qubits))
     list_n_sigmax = []
     for i in range(n_qubits):
         list_n_sigmax.append(qucs.n_sigmax(n_qubits,i))
@@ -84,7 +84,7 @@ def prob_hamilt(vertices, edges):
         a tensor that apply the problem hamiltonian to a n-qubits state\n
     Raise:\n
         ValueError if number of qubits is less than 2"""
-    if n_qubits < 2:
+    if vertices < 2:
         raise ValueError('number of vertices must be > 1, but is {}'.format(n_qubits))
     list_double_sigmaz = []
     for j in range(len(edges)):
