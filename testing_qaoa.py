@@ -15,6 +15,7 @@ from hypothesis import settings
 from hypothesis import given
 import qaoa
 import qucompsys as qucs
+from networkx.generators.random_graphs import erdos_renyi_graph
 
 #@given(N=st.integers(1,configuration.N), M = st.integers(1,configuration.M))
 #@settings(max_examples = 1)
@@ -81,6 +82,25 @@ def test_mix_hamilt(n_qubits):
     exp = qucs.n_sigmax(n_qubits,0)*gen_state
     for i in range(1,n_qubits):
         exp += qucs.n_sigmax(n_qubits,i)*gen_state
+    assert_equal(obs,exp)
+    
+
+@given(n_qubits=st.integers(2,5))
+def test_prob_hamilt(n_qubits):
+    #generate a generic n-qubits state
+    list_gen_state = qucs.n_rand_qubits(n_qubits)
+    gen_state = qu.tensor(list_gen_state)
+    #generate a random graph of n-vertices
+    prob = 0.5
+    graph = erdos_renyi_graph(n_qubits, prob)
+    edges = list(graph.edges)
+    #test is ìf the result is the one expected
+    obs = qaoa.prob_hamilt(n_qubits)*gen_state
+    exp = 0.5*(len(edges)*qucs.n_qeye(n_qubits)
+               -qucs.n_sigmax(n_qubits,edges[0][0])*qucs.n_sigmax(n_qubits,edges[0][1]))*gen_state)
+    for j in range(1,range(len(edges))):
+        exp += 0.5*(len(edges)*qucs.n_qeye(n_qubits)
+               -qucs.n_sigmax(n_qubits,edges[j][0])*qucs.n_sigmax(n_qubits,edges[j][1]))*gen_state)
     assert_equal(obs,exp)
         
         
