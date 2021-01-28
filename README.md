@@ -8,7 +8,7 @@ The aim of MaxCut is to maximize the number of edges in a graph that are â€œcutâ
 
 Consider a graph with $m$ edges and $n$ vertices. We seek the partition $z$ of the vertices into two sets A and B which maximizes
 
-$$C(z) = \sum_{\alpha =1}^{m}C_{\alpha}(z)$$
+<p><span class="math display">\[C(z) = \sum_{\alpha =1}^{m}C_{\alpha}(z)\]</span></p>
 
 where $C$ counts the number of edges cut. $C_\alpha(z)=1$ if $z$ places one vertex from the
 $\alpha^\text{th}$ edge in set $A$ and the other in set $B$, and $C_\alpha(z)=0$ otherwise.
