@@ -108,6 +108,7 @@ def test_prob_hamilt(n_qubits):
         
     
 @given(n_qubits=st.integers(2,5),n_levels=st.integers(2,5))
+@settings(deadline=None)
 def test_evolution_operator(n_qubits, n_levels):
     #generate random parameters
     params = qaoa.initial_params(n_levels)

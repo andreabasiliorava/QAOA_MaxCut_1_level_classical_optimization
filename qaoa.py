@@ -84,11 +84,11 @@ def prob_hamilt(n_qubits, edges):
         a tensor that apply the problem hamiltonian to a n-qubits state\n
     Raise:\n
         ValueError if number of qubits is less than 2"""
-    if n_vertices < 2:
+    if n_qubits < 2:
         raise ValueError('number of qubits must be > 1, but is {}'.format(n_qubits))
     list_double_sigmaz = []
     for j in range(len(edges)):
-        list_double_sigmaz.append(qucs.n_sigmaz(n_vertices,edges[j][0])*qucs.n_sigmaz(n_qubits,edges[j][1]))
+        list_double_sigmaz.append(qucs.n_sigmaz(n_qubits,edges[j][0])*qucs.n_sigmaz(n_qubits,edges[j][1]))
     return 0.5*(len(edges)*qucs.n_qeye(n_qubits)-sum(list_double_sigmaz))
 
 
@@ -113,11 +113,11 @@ def evolution_operator(n_qubits, edges, gammas, betas):
         raise ValueError('number of gammas must be > 0, but is {}'.format(len(gammas)))
     if len(betas) < 1:
         raise ValueError('number of gammas must be > 0, but is {}'.format(len(betas)))
-    if len(betas) != len(gamma):
+    if len(betas) != len(gammas):
         raise ValueError('number of gammas must be = number of betas, but they are {}'.format(len(betas),len(gammas)))
     if n_qubits < 2:
         raise ValueError('number of qubits must be > 1, but is {}'.format(n_qubits))
-    evol_oper = n_qeye(n_qubits)
+    evol_oper = qucs.n_qeye(n_qubits)
     for i in range(len(gammas)):
         u_mix_hamilt_i = (-complex(0,betas[i])*mix_hamilt(n_qubits)).expm()
         u_prob_hamilt_i = (-complex(0,gammas[i])*prob_hamilt(n_qubits, edges)).expm()
