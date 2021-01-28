@@ -10,7 +10,7 @@ Consider a graph with _m_ edges and _n_ vertices. We seek the partition _z_ of t
 
 ![equation1](https://latex.codecogs.com/gif.latex?C(z)%20=%20\sum_{\alpha%20=1}^{m}C_{\alpha}(z))
 
-where _C_ counts the number of edges cut. _C_<sub>&alpha; (_z_)=1 if _z_ places one vertex from the
+where _C_ counts the number of edges cut. _C<sub>&alpha;_(_z_)=1 if _z_ places one vertex from the
 $\alpha^\text{th}$ edge in set $A$ and the other in set $B$, and $C_\alpha(z)=0$ otherwise.
 Finding a cut which yields the maximum possible value of $C$ is an NP-complete problem, so our best hope for a
 polynomial-time algorithm lies in an approximate optimization.
