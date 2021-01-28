@@ -32,8 +32,7 @@ The Quantum Approximate Optimization Algorithm (QAOA) is a quantum algorithm whi
 Firstly, denoting the partitions using computational basis states $|z\rangle$, we can represent the terms in the
 objective function as operators acting on these states
 
-[img]https://bit.ly/2MByHhj[/img]
-
+<img src="https://bit.ly/2MByHhj" align="center" border="0" alt="\begin{align}C_\alpha = \frac{1}{2}\left(1-\sigma_{z}^j\sigma_{z}^k\right),\end{align}" width="143" height="36" />
 where the $\alpha\text{th}$ edge is between vertices $(j,k)$.
 $C_\alpha$ has eigenvalue 1 if and only if the $j\text{th}$ and $k\text{th}$
 qubits have different z-axis measurement values, representing separate partitions.
