@@ -7,7 +7,7 @@ Created on Tue Jan 25 10:14:48 2021
 
 import numpy as np
 import qutip as qu
-import operators as op
+import qucompsys as qucs
 
 
 def evaluate_obj(z_str, edges):
@@ -68,10 +68,10 @@ def mix_hamilt(n_qubits):
         ValueError if number of qubits is less than 2"""
     if n_qubits < 2:
         raise ValueError('number of vertices must be > 1, but is {}'.format(n_qubits))
-    list_sigmax = []
+    list_n_sigmax = []
     for i in range(n_qubits):
-        list_sigmax.append(op.n_sigmax(n_qubits,i))
-    return sum(list_sigmax)
+        list_n_sigmax.append(qucs.n_sigmax(n_qubits,i))
+    return sum(list_n_sigmax)
 
 
 

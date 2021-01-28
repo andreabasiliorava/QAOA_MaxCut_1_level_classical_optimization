@@ -8,12 +8,13 @@ Created on Mon Jan 25 15:13:05 2021
 from nose.tools import assert_equal
 #import configuration
 import numpy as np
-#import qutip as qu
+import qutip as qu
 #import hypothesis
 from hypothesis import strategies as st
 from hypothesis import settings
 from hypothesis import given
 import qaoa
+import qucompsys as qucs
 
 #@given(N=st.integers(1,configuration.N), M = st.integers(1,configuration.M))
 #@settings(max_examples = 1)
@@ -46,7 +47,7 @@ def test_initial_params(n_levels):
 
 @given(n_qubits=st.integers(1,5))
 @settings(deadline=None)
-def test_initial_state (n_qubits):
+def test_initial_state(n_qubits):
     #Initialazing the initial state
     state = qaoa.initial_state(n_qubits) 
     #Test if the shape of the state is (2**n_qubits,1)
@@ -60,15 +61,6 @@ def test_initial_state (n_qubits):
         exp[1].append(1)
     obs = state.dims
     assert_equal(exp,obs)
-    #Test if the dims of the state are of a n_qubits state
-    exp = [[],[]]
-    vertex = 0
-    while vertex < n_qubits:
-        exp[0].append(2)
-        exp[1].append(1)
-        vertex += 1
-    obs = state.dims
-    assert_equal(exp,obs)
     #Test if the state is a ket
     exp = 'ket'
     obs = state.type
@@ -78,6 +70,18 @@ def test_initial_state (n_qubits):
         exp = 1/np.sqrt(2)**n_qubits
         obs = np.abs(state.full()[i][0])
         assert_equal(round(exp,15),round(obs,15))
+        
+@given(n_qubits=st.integers(2,5))
+def test_mix_hamilt(n_qubits):
+    #generate a generic n-qubits state
+    list_gen_state = qucs.n_rand_qubits(n_qubits)
+    gen_state = qu.tensor(list_gen_state)
+    #test is ìf the result is the one expected
+    obs = qaoa.mix_hamilt(n_qubits)*gen_state
+    exp = qucs.n_sigmax(n_qubits,0)*gen_state
+    for i in range(1,n_qubits):
+        exp += qucs.n_sigmax(n_qubits,i)*gen_state
+    assert_equal(obs,exp)
         
         
 if __name__ == "main":
