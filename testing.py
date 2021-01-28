@@ -35,7 +35,7 @@ def test_evaluate_obj():
                           )
     assert_equal(exp,obs)
     
-@given(n_levels=st.integers(1,5))
+@given(n_levels=st.integers(2,5))
 def test_initial_params(n_levels):
     #Initialazing the initial state
     params = qaoa.initial_params(n_levels)
@@ -44,7 +44,7 @@ def test_initial_params(n_levels):
     obs = params.shape
     assert_equal(exp,obs)
 
-@given(n_qubits=st.integers(1,10))
+@given(n_qubits=st.integers(1,5))
 @settings(deadline=None)
 def test_initial_state (n_qubits):
     #Initialazing the initial state
@@ -79,51 +79,6 @@ def test_initial_state (n_qubits):
         obs = np.abs(state.full()[i][0])
         assert_equal(round(exp,15),round(obs,15))
         
-        
-@given(n_qubits=st.integers(1,10))
-@settings(deadline=None)
-def test_generic_state (n_qubits):
-    #Initialazing the initial state
-    state = qaoa.generic_state(n_qubits) 
-    #Test if the shape of the state is (2**n_qubits,1)
-    exp = (2**n_qubits,1)
-    obs = state.shape
-    assert_equal(exp,obs)
-    #Test if the dims of the state are of a n_vertices qubits
-    exp = [[],[]]
-    for vertex in range(n_qubits):
-        exp[0].append(2)
-        exp[1].append(1)
-    obs = state.dims
-    assert_equal(exp,obs)
-    #Test if the dims of the state are of a n_qubits state
-    exp = [[],[]]
-    vertex = 0
-    while vertex < n_qubits:
-        exp[0].append(2)
-        exp[1].append(1)
-        vertex += 1
-    obs = state.dims
-    assert_equal(exp,obs)
-    #Test if the state is a ket
-    exp = 'ket'
-    obs = state.type
-    assert_equal(exp,obs)
-    
-    
-@given(n_qubits=st.integers(1,5))
-def test_n_qeye(n_qubits):
-    #generate a generic n-qubits state
-    gen_state = qaoa.generic_state(n_qubits)
-    #Test is it remain the same after been applied to it n_qeye
-    exp = gen_state
-    obs = qaoa.n_qeye(n_qubits)*gen_state
-    assert_equal(exp,obs)
-    
-
-@given(n_qubits=st.integers(1,5))
-def test_n_sigmax(n_qubits):
-    #generate a generic n-qubits state
         
 if __name__ == "main":
     pass        
