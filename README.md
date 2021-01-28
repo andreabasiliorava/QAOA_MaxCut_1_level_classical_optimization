@@ -8,7 +8,7 @@ The aim of MaxCut is to maximize the number of edges in a graph that are â€œcutâ
 
 Consider a graph with $m$ edges and $n$ vertices. We seek the partition $z$ of the vertices into two sets A and B which maximizes
 
-<p><span class="math display">\[C(z) = \sum_{\alpha =1}^{m}C_{\alpha}(z)\]</span></p>
+<img src="http://www.sciweavers.org/tex2img.php?eq=%24%24C%28z%29%20%3D%20%5Csum_%7B%5Calpha%20%3D1%7D%5E%7Bm%7DC_%7B%5Calpha%7D%28z%29%24%24&bc=White&fc=Black&im=jpg&fs=12&ff=modern&edit=0" align="center" border="0" alt="$$C(z) = \sum_{\alpha =1}^{m}C_{\alpha}(z)$$" width="143" height="21" />
 
 where $C$ counts the number of edges cut. $C_\alpha(z)=1$ if $z$ places one vertex from the
 $\alpha^\text{th}$ edge in set $A$ and the other in set $B$, and $C_\alpha(z)=0$ otherwise.
@@ -32,7 +32,7 @@ The Quantum Approximate Optimization Algorithm (QAOA) is a quantum algorithm whi
 Firstly, denoting the partitions using computational basis states $|z\rangle$, we can represent the terms in the
 objective function as operators acting on these states
 
-\begin{align}C_\alpha = \frac{1}{2}\left(1-\sigma_{z}^j\sigma_{z}^k\right),\end{align}
+[img]https://bit.ly/2MByHhj[/img]
 
 where the $\alpha\text{th}$ edge is between vertices $(j,k)$.
 $C_\alpha$ has eigenvalue 1 if and only if the $j\text{th}$ and $k\text{th}$
