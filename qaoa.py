@@ -63,7 +63,7 @@ def mix_hamilt(n_qubits):
     Parameters:\n
         n_qubits: number of qubits the states is composed of\n
     Returns:\n
-        a tensor that apply the identity to a n-qubits state\n
+        a tensor that apply the mixing hamiltonian to a n-qubits state\n
     Raise:\n
         ValueError if number of qubits is less than 2"""
     if n_qubits < 2:
@@ -72,6 +72,25 @@ def mix_hamilt(n_qubits):
     for i in range(n_qubits):
         list_n_sigmax.append(qucs.n_sigmax(n_qubits,i))
     return sum(list_n_sigmax)
+
+
+def prob_hamilt(vertices, edges):
+    """This method generates a tensor that apply the problem hamiltonian of the 
+        MaxCut problem on a state of n-qubits\n
+    Parameters:\n
+        vertices: number of vertices of the graph
+        edges: list of tuples corresponding to the edges of the graph\n
+    Returns:\n
+        a tensor that apply the problem hamiltonian to a n-qubits state\n
+    Raise:\n
+        ValueError if number of qubits is less than 2"""
+    if n_qubits < 2:
+        raise ValueError('number of vertices must be > 1, but is {}'.format(n_qubits))
+    list_double_sigmaz = []
+    for j in range(len(edges)):
+        list_double_sigmaz.append(qucs.n_sigmaz(vertices,edges[j][0])*qucs.n_sigmaz(vertices,edges[j][1]))
+    return 0.5*(len(edges)*qucs.n_qeye(vertices)-sum(list_double_sigmaz))
+                                 
 
 
 
