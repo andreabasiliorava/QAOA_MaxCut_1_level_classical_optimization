@@ -134,6 +134,10 @@ def test_evolution_operator(n_qubits, n_levels):
         u_prob_hamilt_i = (-complex(0,gammas[i])*qaoa.prob_hamilt(n_qubits, edges)).expm()
         exp = u_mix_hamilt_i*u_prob_hamilt_i*exp
     assert_equal(exp, obs)
+    #test if it evolves a state for known parameters
+    exp = qu.qload('final_state_simple_graph_p=1')
+    obs = qaoa.evolution_operator(3, [(0,1),(1,2)], [1.0], [0.4])*qaoa.initial_state(3)
+    
 
 
 if __name__ == "main":
