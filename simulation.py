@@ -6,10 +6,10 @@ Created on Mon Jan 25 13:09:06 2021
 """
 
 import qaoa
-import qucompsys as qucs
-import numpy as np
-import matplotlib.pyplot as plt
-import qutip as qu
+#import qucompsys as qucs
+#import numpy as np
+#import matplotlib.pyplot as plt
+#import qutip as qu
 import configparser
 
 #main part of the code
@@ -48,8 +48,7 @@ prob_ham = qaoa.prob_hamilt(n_vertices, edges)
 # obtain final state
 fin_state = qaoa.evolution_operator(n_qubits, edges, gammas, betas)*init_state
 
-print(init_state)
-print(fin_state)
+
 
 
 
