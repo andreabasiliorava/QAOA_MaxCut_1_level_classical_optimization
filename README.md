@@ -6,24 +6,24 @@ The aim of MaxCut is to maximize the number of edges in a graph that are â€œcutâ
 
 ![maximum cut example](./images/qaoa_maxcut_partition.png)
 
-Consider a graph with <b>m</b> edges and ***_n_*** vertices. We seek the partition ***_z_*** of the vertices into two sets A and B which maximizes
+Consider a graph with <b>m</b> edges and ***n*** vertices. We seek the partition ***z*** of the vertices into two sets A and B which maximizes
 
 ![equation1](https://latex.codecogs.com/gif.latex?C(z)%20=%20\sum_{\alpha%20=1}^{m}C_{\alpha}(z))
 
-where ***_C_*** counts the number of edges cut. <b><i>C<sub>&alpha;</sub>(z)=1</i></b> if ***_z_*** places one vertex from the
-***_&alpha;th_*** edge in set ***_A_*** and the other in set ***_B_***, and ***_C<sub>&alpha;</sup>(z)=0_*** otherwise.
+where ***C*** counts the number of edges cut. <b><i>C<sub>&alpha;</sub>(z)=1</i></b> if ***z*** places one vertex from the
+&alpha;<sup>th</sup> edge in set A and the other in set B, and ***C***<sub>&alpha;</sub>(***z***)=0 otherwise.
 Finding a cut which yields the maximum possible value of ***_C_*** is an NP-complete problem, so our best hope for a
 polynomial-time algorithm lies in an approximate optimization.
-In the case of MaxCut, this means finding a partition ***_z_*** which
-yields a value for ***_C(z)_*** that is close to the maximum possible value.
+In the case of MaxCut, this means finding a partition ***z*** which
+yields a value for ***C***(***z***) that is close to the maximum possible value.
 
-We can represent the assignment of vertices to set ***_A_*** or ***_B_*** using a bitstring,
-z=z<sub>1</sub>...z<sub>n</sub> where z<sub>i</sub>=0 if the i<sup>th</sup> vertex is in ***A*** and
-z<sub>i</sub> = 1 if it is in ***B***. For instance,
-in the situation depicted in the figure above the bitstring representation is z=0101,
-indicating that the 0<sup>th</sup> and 2<sup>nd</sup> vertices are in ***A***
+We can represent the assignment of vertices to set A or B using a bitstring,
+***z***=z<sub>1</sub>...z<sub>n</sub> where z<sub>i</sub>=0 if the i<sup>th</sup> vertex is in A and
+z<sub>i</sub> = 1 if it is in B. For instance,
+in the situation depicted in the figure above the bitstring representation is ***z***=0101,
+indicating that the 0<sup>th</sup> and 2<sup>nd</sup> vertices are in A
 while the 1<sup>st</sup> and 3<sup>rd</sup> are in
-***B***. This assignment yields a value for the objective function
+B. This assignment yields a value for the objective function
 ***C***=4, which turns out to be the maximum cut.
 
 ## QAOA for MaxCut
