@@ -45,7 +45,11 @@ init_state = qaoa.initial_state(n_qubits)
 mix_ham = qaoa.mix_hamilt(n_qubits)
 prob_ham = qaoa.prob_hamilt(n_vertices, edges)
 
+# obtain final state
+fin_state = qaoa.evolution_operator(n_qubits, edges, gammas, betas)*init_state
 
+print(init_state)
+print(fin_state)
 
 
 

@@ -19,7 +19,7 @@ import qucompsys as qucs
 @settings(deadline=None)
 def test_n_ranf_qubits(n_qubits):
     #Initialazing the initial state
-    list_qubits = qucs.n_rand_qubits(n_qubits) 
+    list_qubits = qucs.n_rand_qubits(n_qubits)
     #Test if the shape of each qubit is (2,1)
     for i in range(n_qubits):
         exp = (2,1)
@@ -36,15 +36,17 @@ def test_n_ranf_qubits(n_qubits):
 def test_n_qeye(n_qubits):
     #generate a generic n-qubits state
     dimensions = [[],[]]
-    for vertex in range(n_qubits):
+    i = 0
+    while i < n_qubits:
         dimensions[0].append(2)
-        dimensions[1].append(1) 
+        dimensions[1].append(1)
+        i+=1
     gen_state = qu.rand_ket(2**n_qubits,dims=dimensions)
     #Test if it remain the same after been applied to it n_qeye
     exp = gen_state
     obs = qucs.n_qeye(n_qubits)*gen_state
     assert_equal(exp,obs)
-    
+
 
 @given(n_qubits=st.integers(2,5))
 def test_n_sigmax(n_qubits):
@@ -62,8 +64,8 @@ def test_n_sigmax(n_qubits):
     exp = qu.tensor(list_exp)
     obs = qucs.n_sigmax(n_qubits,qubit_pos)*gen_state
     assert_equal(exp, obs)
-    
-    
+
+
 @given(n_qubits=st.integers(2,5))
 def test_n_sigmay(n_qubits):
     #generate a generic n-qubits state
@@ -80,8 +82,8 @@ def test_n_sigmay(n_qubits):
     exp = qu.tensor(list_exp)
     obs = qucs.n_sigmay(n_qubits,qubit_pos)*gen_state
     assert_equal(exp, obs)
-    
-    
+
+
 @given(n_qubits=st.integers(2,5))
 def test_n_sigmaz(n_qubits):
     #generate a generic n-qubits state
@@ -98,8 +100,8 @@ def test_n_sigmaz(n_qubits):
     exp = qu.tensor(list_exp)
     obs = qucs.n_sigmaz(n_qubits,qubit_pos)*gen_state
     assert_equal(exp, obs)
-    
-    
+
+
 @given(n_qubits=st.integers(2,5))
 def test_n_proj0(n_qubits):
     #generate a generic n-qubits state
@@ -116,8 +118,8 @@ def test_n_proj0(n_qubits):
     exp = qu.tensor(list_exp)
     obs = qucs.n_proj0(n_qubits,qubit_pos)*gen_state
     assert_equal(exp, obs)
-    
-    
+
+
 @given(n_qubits=st.integers(2,5))
 def test_n_proj1(n_qubits):
     #generate a generic n-qubits state

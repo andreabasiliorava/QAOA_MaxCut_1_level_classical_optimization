@@ -58,7 +58,7 @@ def initial_state(n_qubits):
 
 
 def mix_hamilt(n_qubits):
-    """This method generates a tensor that apply the mixing hamiltonian of the 
+    """This method generates a tensor that apply the mixing hamiltonian of the
         MaxCut problem on a state of n-qubits\n
     Parameters:\n
         n_qubits: number of qubits the states is composed of\n
@@ -75,7 +75,7 @@ def mix_hamilt(n_qubits):
 
 
 def prob_hamilt(n_qubits, edges):
-    """This method generates a tensor that apply the problem hamiltonian of the 
+    """This method generates a tensor that apply the problem hamiltonian of the
         MaxCut problem on a state of n-qubits\n
     Parameters:\n
         vertices: number of vertices of the graph
@@ -88,13 +88,15 @@ def prob_hamilt(n_qubits, edges):
         raise ValueError('number of qubits must be > 1, but is {}'.format(n_qubits))
     list_double_sigmaz = []
     for j in range(len(edges)):
-        list_double_sigmaz.append(qucs.n_sigmaz(n_qubits,edges[j][0])*qucs.n_sigmaz(n_qubits,edges[j][1]))
+        list_double_sigmaz.append(
+            qucs.n_sigmaz(n_qubits,edges[j][0])*qucs.n_sigmaz(n_qubits,edges[j][1])
+            )
     return 0.5*(len(edges)*qucs.n_qeye(n_qubits)-sum(list_double_sigmaz))
 
 
 def evolution_operator(n_qubits, edges, gammas, betas):
     """
-    This method generates a tensor that apply the evolution operator U of the 
+    This method generates a tensor that apply the evolution operator U of the
         MaxCut problem on a state of n-qubits\n
     Parameters:\n
         n_qubits: number of qubits is the n-qubits state among this operators acts on\n
@@ -107,14 +109,14 @@ def evolution_operator(n_qubits, edges, gammas, betas):
         ValueError if number of gammas is less than 1\n
         ValueError if number of betas is less than 1\n
         ValueError if number of betas is different than number of gammas\n
-        ValueError if number of qubits is less than 2        
+        ValueError if number of qubits is less than 2      
     """
     if len(gammas) < 1:
         raise ValueError('number of gammas must be > 0, but is {}'.format(len(gammas)))
     if len(betas) < 1:
         raise ValueError('number of gammas must be > 0, but is {}'.format(len(betas)))
     if len(betas) != len(gammas):
-        raise ValueError('number of gammas must be = number of betas, but they are {}'.format(len(betas),len(gammas)))
+        raise ValueError('number of gammas must be = number of betas')
     if n_qubits < 2:
         raise ValueError('number of qubits must be > 1, but is {}'.format(n_qubits))
     evol_oper = qucs.n_qeye(n_qubits)
@@ -123,16 +125,3 @@ def evolution_operator(n_qubits, edges, gammas, betas):
         u_prob_hamilt_i = (-complex(0,gammas[i])*prob_hamilt(n_qubits, edges)).expm()
         evol_oper = u_mix_hamilt_i*u_prob_hamilt_i*evol_oper
     return evol_oper
-
-
-
-        
-    
-                             
-
-
-
-
-
-
-

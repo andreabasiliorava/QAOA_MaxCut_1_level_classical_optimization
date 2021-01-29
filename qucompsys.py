@@ -19,8 +19,8 @@ def n_rand_qubits(n_qubits):
         raise ValueError('number of qubits must be > 0, but is {}'.format(n_qubits))
     list_n_rand_qubits = []
     i = 0
-    coeffs_real = np.random.random((2,n_qubits))
-    coeffs_imm = np.random.random((2,n_qubits))
+    coeffs_real = np.random.random_sample((2,n_qubits))
+    coeffs_imm = np.random.random_sample((2,n_qubits))
     basis_elem = np.random.randint(0,2,(2,n_qubits))
     for i in range(n_qubits):
         gen_qubit = (complex(coeffs_real[0][i],coeffs_imm[0][i])*qu.basis(2,basis_elem[0][i])
@@ -40,8 +40,7 @@ def n_qeye(n_qubits):
         ValueError if number of qubits is less than 1"""
     if n_qubits < 1:
         raise ValueError('number of qubits must be > 0, but is {}'.format(n_qubits))
-    n_qeye = qu.tensor([qu.qeye(2)]*n_qubits)
-    return n_qeye
+    return qu.tensor([qu.qeye(2)]*n_qubits)
 
 
 def n_sigmax(n_qubits, qubit_pos):
