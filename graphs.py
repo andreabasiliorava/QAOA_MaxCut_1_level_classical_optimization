@@ -4,7 +4,7 @@ Created on Sun Jan 31 12:03:35 2021
 
 @author: AndreaB.Rava
 """
-#import networkx as nx
+
 from   networkx.generators.random_graphs import erdos_renyi_graph
 
 
