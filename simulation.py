@@ -7,12 +7,12 @@ Created on Mon Jan 25 13:09:06 2021
 
 import qaoa
 import graphs as gr
-import qucompsys as qucs
+#import qucompsys as qucs
 import numpy as np
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import qutip as qu
-import configparser
-import networkx as nx
+#import configparser
+#import networkx as nx
 from   networkx.generators.random_graphs import erdos_renyi_graph
 import scipy
 
@@ -52,12 +52,9 @@ graph.add_edges_from(edges)
 
 #METHOD 3: generate a random graph
 #generate random graph with at least one edge
-n_nodes = 6
+n_nodes = 3
 n_qubits = n_nodes
-prob = 0.5
-graph = erdos_renyi_graph(n_nodes, prob)
-while len(list(graph.edges)) < 1:
-    graph = erdos_renyi_graph(n_nodes, prob)
+graph = gr.random_graph(n_nodes)
 edges = list(graph.edges)
 
 
