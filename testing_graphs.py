@@ -16,12 +16,12 @@ from hypothesis import settings
 from hypothesis import given
 import qucompsys as qucs
 
-@given(n_nodes=st.integers(1,5))
+@given(n_nodes=st.integers(2,5))
 def test_random_graph(n_nodes):
     # test if random_graph has n_nodes
-    obs = gr.random_graph(n_nodes).nodes
+    obs = len(list(gr.random_graph(n_nodes).nodes))
     exp = n_nodes
     assert_equal(exp, obs)
     # test if has at leat one edge
-    #obs = len(list(gr.random_graph(n_nodes).edges))
-    #assert obs > 0
+    obs = len(list(gr.random_graph(n_nodes).edges))
+    assert obs > 0

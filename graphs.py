@@ -8,7 +8,7 @@ import networkx as nx
 from   networkx.generators.random_graphs import erdos_renyi_graph
 
 
-def rand_graph (n_nodes, prob=0.5):
+def random_graph (n_nodes, prob=0.5):
     """
     This method generate a random graph, with n_nodes and at least one edge
 
