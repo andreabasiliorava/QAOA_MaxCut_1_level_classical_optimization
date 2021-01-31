@@ -9,7 +9,7 @@ import qaoa
 #import qucompsys as qucs
 #import numpy as np
 #import matplotlib.pyplot as plt
-#import qutip as qu
+import qutip as qu
 import configparser
 
 #main part of the code
@@ -38,15 +38,18 @@ init_params = qaoa.initial_params(n_levels)
 gammas = init_params[0]
 betas = init_params[1]
 
-# initial state |s>:
+# initial state (as density matrix):
 init_state = qaoa.initial_state(n_qubits)
+dm_init_state = qu.ket2dm(init_state)
 
 # define MaxCut hamiltonian operators
 mix_ham = qaoa.mix_hamilt(n_qubits)
 prob_ham = qaoa.prob_hamilt(n_vertices, edges)
 
-# obtain final state
+# obtain final state (as density matrix)
 fin_state = qaoa.evolution_operator(n_qubits, edges, gammas, betas)*init_state
+dm_fin_state = qu.ket2dm(fin_state)
+
 
 
 
