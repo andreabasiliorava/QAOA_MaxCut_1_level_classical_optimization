@@ -14,6 +14,7 @@ import qutip as qu
 import configparser
 import networkx as nx
 from   networkx.generators.random_graphs import erdos_renyi_graph
+import scipy
 
 #main part of the code
 
@@ -60,7 +61,7 @@ while len(list(graph.edges)) < 1:
 edges = list(graph.edges)
 
 
-#STEP 3: define analitical expectation coat function
+#STEP 3: define analitical expectation cost function
 def analitical_f_1(parameters, graph, edges):
     """
     This function returns the value of the estimated cost function for specific
@@ -93,9 +94,13 @@ def analitical_f_1(parameters, graph, edges):
         f_1 += c_uv
     return -f_1
 
+#STEP 4: find optimal parameters
+optimal_params = scipy.optimize.minimize(analitical_f_1, [0.0, 0.0], args = (graph, edges), method='Nelder-Mead')['x']
+optimal_gamma = optimal_params[0]
+optimal_beta = optimal_params[1]
 
 
-"""
+#STEP 5: obtain final state with solutions
 # initial state (as density matrix):
 init_state = qaoa.initial_state(n_qubits)
 dm_init_state = qu.ket2dm(init_state)
@@ -105,6 +110,7 @@ mix_ham = qaoa.mix_hamilt(n_qubits)
 prob_ham = qaoa.prob_hamilt(n_qubits, edges)
 
 # obtain final state (as density matrix)
-fin_state = qaoa.evolution_operator(n_qubits, edges, gammas, betas)*init_state
+fin_state = qaoa.evolution_operator(n_qubits, edges, [optimal_gamma], [optimal_beta])*init_state
 dm_fin_state = qu.ket2dm(fin_state)
-"""
+
+
