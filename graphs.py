@@ -50,3 +50,28 @@ def node_degree(graph, node_u):
 
     """
     return len(graph[node_u])
+
+def common_neighbours (graph, node_u, node_v):
+    """
+    This method return the number of common neighbours of two nodes linked by an edge in a graph
+
+    Parameters
+    ----------
+    graph : networkx.classes.graph.Graph
+        graph defined in the library networkx belonging to the class Graph.
+    node_u : int
+        node u
+    node_v : int
+        node v.
+
+    Returns
+    -------
+    common_neighbours : int
+        return number of common neighbours of the nodes u and v.
+
+    """
+    common_neigh = 0
+    for node_w in graph[node_u]:
+        if (node_w in graph[node_v]) and (node_w not in (node_u, node_v)):
+            common_neigh +=1
+    return common_neigh
