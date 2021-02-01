@@ -268,3 +268,14 @@ def test_common_neighbours():
 
 if __name__ == "main":
     pass
+
+
+@given(n_qubits=st.integers(2,5))
+def test_comp_basis_prob_dist(n_qubits):
+    #generate a generic n-qubits state
+    list_gen_state = qucs.n_rand_qubits(n_qubits)
+    gen_state = qu.tensor(list_gen_state)
+    #Test that, gor a generic qstate, sum probabilities is 1
+    exp = 1.0
+    obs = round(sum(qucs.comp_basis_prob_dist(gen_state)), 14)
+    assert_equal(exp, obs)

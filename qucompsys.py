@@ -170,3 +170,24 @@ def n_sigmaz(n_qubits, qubit_pos):
     for i in range(n_qubits):
         list_n_sigmaz.append(qu.tensor([qu.qeye(2)]*i+[qu.sigmaz()]+[qu.qeye(2)]*(n_qubits-i-1)))
     return list_n_sigmaz[qubit_pos]
+
+def comp_basis_prob_dist(qstate):
+    """
+    This methos gives the probability distribution of a given state in the computational
+    basis state
+
+    Parameters
+    ----------
+    qstate : a qobject, 1-D array-like
+        a tendor representing a n-qubits state.
+
+    Returns
+    -------
+    prob_dist : list
+        list of the probabilities distribution.
+
+    """
+    prob_dist = []
+    for component in qstate.full():
+        prob_dist.append(float(abs(component))**2)
+    return prob_dist
