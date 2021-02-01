@@ -9,11 +9,11 @@ import scipy
 import qutip as qu
 import qaoa
 import graphs as gr
-#import qucompsys as qucs
+import qucompsys as qucs
 #import numpy as np
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 #import configparser
-#import networkx as nx
+import networkx as nx
 
 #main part of the code
 
@@ -57,13 +57,19 @@ graph = gr.random_graph(N_NODES)
 edges = list(graph.edges)
 
 
-#STEP 4: find optimal parameters
+#Plot the graph
+colors = ['r' for node in graph.nodes()]
+pos = nx.circular_layout(graph)
+graph_drawing = nx.draw_networkx(graph, node_color=colors, node_size=200, alpha=1, pos=pos, with_labels=True)
+plt.show()
+
+#STEP 2: find optimal parameters
 optimal_params = scipy.optimize.minimize(qaoa.analitical_f_1, [0.0, 0.0], args = (graph, edges), method='Nelder-Mead')['x']
 optimal_gamma = optimal_params[0]
 optimal_beta = optimal_params[1]
 
 
-#STEP 5: obtain final state with solutions
+#STEP 3: obtain final state with solutions
 # initial state (as density matrix):
 init_state = qaoa.initial_state(N_QUBITS)
 dm_init_state = qu.ket2dm(init_state)
@@ -75,3 +81,11 @@ prob_ham = qaoa.prob_hamilt(N_QUBITS, edges)
 # obtain final state (as density matrix)
 fin_state = qaoa.evolution_operator(N_QUBITS, edges, [optimal_gamma], [optimal_beta])*init_state
 dm_fin_state = qu.ket2dm(fin_state)
+
+#plot probability distributions of configurations in final state
+prob_dist_fin_state = qucs.comp_basis_prob_dist(fin_state)
+plt.figure(figsize = (2**N_QUBITS/2.5,20))
+plt.xticks(rotation=45)
+xticks = range(0,2**(N_QUBITS-1))
+xtick_labels = list(map(lambda x: format(x, "0"+str(N_QUBITS)+'b'), xticks))
+plt.bar(xtick_labels,prob_dist_fin_state[:2**(N_QUBITS-1)],width = 0.5)
