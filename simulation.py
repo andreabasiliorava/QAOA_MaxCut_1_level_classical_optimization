@@ -10,9 +10,9 @@ import qutip as qu
 import qaoa
 import graphs as gr
 import qucompsys as qucs
-#import numpy as np
+import numpy as np
 import matplotlib.pyplot as plt
-#import configparser
+import configparser
 import networkx as nx
 
 #main part of the code
@@ -22,9 +22,7 @@ import networkx as nx
 #METHOD 1: define it manually
 #butterfly graph
 N_NODES = 5
-nodes = []
-for i in range(N_NODES):
-    nodes.append(i)
+nodes = np.arange(0, N_NODES, 1)
 edges = [(0,1),(0,2),(1,2),(2,3),(2,4),(3,4)]
 N_QUBITS = N_NODES
 graph = nx.Graph()
@@ -32,7 +30,7 @@ graph.add_nodes_from(nodes)
 graph.add_edges_from(edges)
 """
 
-"""
+#"""
 #METHOD 2: take information from a file
 config = configparser.ConfigParser()
 config.read('graphs.txt')
@@ -41,21 +39,23 @@ str_N_NODES = config.get(str_graph, 'N_NODES')
 str_edges = config.get(str_graph, 'edges')
 N_NODES = int(str_N_NODES)
 N_QUBITS = N_NODES
+nodes = np.arange(0, N_NODES, 1)
 edges = []
 for edge in str_edges.split(';'):
     edges.append((int(edge[1]),int(edge[3])))
 graph = nx.Graph()
 graph.add_nodes_from(nodes)
 graph.add_edges_from(edges)
-"""
+#"""
 
+"""
 #METHOD 3: generate a random graph
 #generate random graph with at least one edge
 N_NODES = 6
 N_QUBITS = N_NODES
 graph = gr.random_graph(N_NODES)
 edges = list(graph.edges)
-
+"""
 
 #Plot the graph
 colors = ['r' for node in graph.nodes()]
