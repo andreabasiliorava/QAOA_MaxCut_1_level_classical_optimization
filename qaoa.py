@@ -5,18 +5,20 @@ Created on Tue Jan 25 10:14:48 2021
 @author: AndreaB.Rava
 """
 
+import numpy as np
 import qutip as qu
 import qucompsys as qucs
+import graphs as gr
 
 
-def evaluate_cost_fun(z_str, edges):
+def evaluate_cost_fun(configuration, edges):
     """
     This method evaluates the object function of the MaxCut problem
 
     Parameters
     ----------
-    z_str : string
-        input bit string.
+    configuration : string or 1-D array-like element
+        input mappable element with configuration informations.
     edges : list of tuples
         edges of the graph.
 
@@ -27,10 +29,42 @@ def evaluate_cost_fun(z_str, edges):
     """
 
     cost_fun = 0
-    z_list = list(z_str)
+    z_list = list(configuration)
     for edge in edges:
         cost_fun += (int(z_list[edge[0]])-int(z_list[edge[1]]))**2
     return cost_fun
+
+
+def analitical_f_1(parameters, graph, edges):
+    """
+    This function returns the value of the estimated cost function for specific
+    gamma and beta of a given graph (with opposite sign)
+
+    Parameters
+    ----------
+    parameters : numpy.ndarray
+        1-D array containing the parameters of the function.
+    graph : networkx.classes.graph.Graph
+        graph defined in the library networkx belonging to the class Graph.
+    edges : list of tuples
+        edges of the graph.
+
+    Returns
+    -------
+    -f_1: float
+        estimated cost function with opposite sign.
+
+    """
+    f_1 = 0
+    gamma = parameters[0]
+    beta = parameters[1]
+    for edge in edges:
+        degree_u = gr.node_degree(graph, edge[0])
+        degree_v = gr.node_degree(graph, edge[1])
+        lambda_uv = gr.common_neighbours(graph, edge[0], edge[1])
+        c_uv = 0.5+0.25*np.sin(4*beta)*np.sin(gamma)*(np.cos(gamma)**(degree_u-1) + np.cos(gamma)**(degree_v-1))-0.25*np.sin(beta)**2*np.cos(gamma)**(degree_u+degree_v-2-2*lambda_uv)*(1-np.cos(2*gamma)**lambda_uv)
+        f_1 += c_uv
+    return -f_1
 
 
 def initial_state(n_qubits):

@@ -37,6 +37,20 @@ def test_evaluate_cost_fun():
     assert_equal(exp,obs)
 
 
+def test_analitical_f_1():
+    #test if it gives expected result for known optimal parameters of a graph
+    nodes = [0, 1, 2]
+    edges = [(0,1),(1,2)]
+    graph = nx.Graph()
+    graph.add_nodes_from(nodes)
+    graph.add_edges_from(edges)
+    optimal_gamma = 1.0472
+    optimal_beta = 0.392699
+    exp = 1.64952
+    obs = -qaoa.analitical_f_1([optimal_gamma, optimal_beta], graph, edges)
+    assert_equal(exp, round(obs, 5))
+
+
 @given(n_qubits=st.integers(1,5))
 @settings(deadline=None)
 def test_initial_state(n_qubits):
