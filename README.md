@@ -46,7 +46,7 @@ QAOA starts with a uniform superposition over the ***n*** bitstring basis states
 We aim to explore the space of bitstring states for a superposition which is likely to yield a
 large value for the ***C*** operator upon performing a measurement in the computational basis.
 Using the _2p_ angle parameters
-![eq_par](https://latex.codecogs.com/svg.latex?\vec{\gamma}%20=%20\gamma_1\gamma_2...\gamma_p,%20\vec{\beta}%20=%20\beta_1\beta_2...\beta_p)
+![eq_par](https://latex.codecogs.com/svg.latex?\boldsymbol{\gamma}=(\gamma_1,\gamma_2,...,\gamma_p),%20\boldsymbol{\beta}=(\beta_1,%20\beta_2,...,%20\beta_p))
 we perform a sequence of operations on our initial state:
 
 ![equation3](https://latex.codecogs.com/gif.latex?|\boldsymbol{\gamma},\boldsymbol{\beta}\rangle%20=%20U_{B_p}U_{C_p}U_{B_{p-1}}U_{C_{p-1}}...U_{B_1}U_{C_1}|+_n\rangle)
@@ -59,11 +59,11 @@ In other words, we make _p_ layers of parametrized ***U<sub>B</sub>U<sub>C</sub>
 These can be implemented on a quantum circuit using the gates depicted below, up to an irrelevant constant
 that gets absorbed into the parameters.
 
-Let ![equation5](https://latex.codecogs.com/svg.latex?F_p%20=%20\langle%20\vec{\gamma},\vec{\beta}%20|%20C%20|%20\vec{\gamma},\vec{\beta}%20\rangle) be the expectation of the objective operator.
+Let **F<sub>p</sub>** = <**&gamma;**,**&beta;**|***C***|**&gamma;**,**&beta;**> be the expectation of the objective operator.
 In the next section, we will use PennyLane to perform classical optimization
-over the circuit parameters ![eq6](https://latex.codecogs.com/svg.latex?(\vec{\gamma},\vec{\beta})).
-This will specify a state ![eq7](https://latex.codecogs.com/svg.latex?|\vec{\gamma},\vec{\beta})\rangle) which is
-likely to yield an approximately optimal partition $|z\rangle$ upon performing a measurement in the
+over the circuit parameters (**&gamma;**,**&beta;**).
+This will specify a state |**&gamma;**,**&beta;**> which is
+likely to yield an approximately optimal partition |z> upon performing a measurement in the
 computational basis.
 In the case of the graph shown above, we want to measure either 0101 or 1010 from our state since these correspond to
 the optimal partitions.
