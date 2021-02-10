@@ -55,7 +55,7 @@ def prob_distPlot():
     prob_dist_fin_state = np.load(source1)
     N_QUBITS = len(list(graph.nodes))
     #fig = plt.figure(figsize=(18, 18)) # plot the calculated values    
-    fig = plt.figure(figsize = (2**N_QUBITS/2.5,20))
+    fig = plt.figure(figsize = (2**N_QUBITS,10))
     plt.xticks(rotation=45)
     xticks = range(0,2**(N_QUBITS-1))
     xtick_labels = list(map(lambda x: format(x, "0"+str(N_QUBITS)+'b'), xticks))

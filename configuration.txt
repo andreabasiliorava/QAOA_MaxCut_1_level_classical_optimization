@@ -14,4 +14,4 @@ edges = (0,1);(1,2);(2,3);(3,0)
 graph_pic: ./images/graph.png
 prob_dist_pic: ./images/prob_dist.png
 
-my_prob_dist: ./data/prob_dist.npy
+my_prob_dist: ./prob_dist.npy

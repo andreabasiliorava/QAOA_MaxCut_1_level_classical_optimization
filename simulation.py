@@ -69,8 +69,7 @@ result = np.where(grid_f_1 == np.amax(grid_f_1))
 a      = list(zip(result[0],result[1]))[0]
 optimal_gamma   = a[1]*step_size
 optimal_beta  = a[0]*step_size
-print(optimal_gamma)
-print(optimal_beta)
+
 
 #STEP 3: obtain final state with solutions
 # initial state (as density matrix):
