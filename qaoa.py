@@ -35,7 +35,7 @@ def evaluate_cost_fun(configuration, edges):
     return cost_fun
 
 
-def analitical_f_1(parameters, graph, edges):
+def analitical_f_1(gamma, beta, graph, edges):
     """
     This function returns the value of the estimated cost function for specific
     gamma and beta of a given graph (with opposite sign)
@@ -56,15 +56,13 @@ def analitical_f_1(parameters, graph, edges):
 
     """
     f_1 = 0
-    gamma = parameters[0]
-    beta = parameters[1]
     for edge in edges:
         degree_u = gr.node_degree(graph, edge[0])
         degree_v = gr.node_degree(graph, edge[1])
         lambda_uv = gr.common_neighbours(graph, edge[0], edge[1])
         c_uv = 0.5+0.25*np.sin(4*beta)*np.sin(gamma)*(np.cos(gamma)**(degree_u-1) + np.cos(gamma)**(degree_v-1))-0.25*np.sin(beta)**2*np.cos(gamma)**(degree_u+degree_v-2-2*lambda_uv)*(1-np.cos(2*gamma)**lambda_uv)
         f_1 += c_uv
-    return -f_1
+    return f_1
 
 
 def initial_state(n_qubits):
