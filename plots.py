@@ -15,9 +15,20 @@ import networkx as nx
 
 configu = configparser.ConfigParser()
 configu.read(sys.argv[1])
+str_graph = sys.argv[2]
+str_N_NODES = configu.get(str_graph, 'N_NODES')
+str_edges = configu.get(str_graph, 'edges')
+N_NODES = int(str_N_NODES)
+N_QUBITS = N_NODES
+nodes = np.arange(0, N_NODES, 1)
+edges = []
+for edge in str_edges.split(';'):
+    edges.append((int(edge[1]),int(edge[3])))
+graph = nx.Graph()
+graph.add_nodes_from(nodes)
+graph.add_edges_from(edges)
 
-source1 = configu.get('paths','my_graph')
-source2 = configu.get('paths','my_prob_dist')
+source1 = configu.get('paths','my_prob_dist')
 
 destination1 = configu.get('paths','graph_pic')
 destination2 = configu.get('paths','prob_dist_pic')
@@ -28,11 +39,12 @@ def graphPlot():
     """
     This method plot the graph
     """
-    graph = np.load(source1)
-    colors = ['r' for node in graph.nodes()]
-    pos = nx.circular_layout(graph)
-    graph_drawing = nx.draw_networkx(graph, node_color=colors, node_size=200, alpha=1, pos=pos, with_labels=True)
-    graph_drawing.savefig(destination1)
+    #graph = np.load(source1)
+    #fig = plt.figure(figsize=(18, 18))
+    #nx.draw(graph)
+    #fig.savefig(destination1)
+    nx.draw(graph, with_labels=True)
+    plt.savefig(destination1, dpi=300, bbox_inches='tight')
     
     
 def prob_distPlot():
@@ -40,8 +52,7 @@ def prob_distPlot():
     This method plots the probability distribution of the final state 
     which contain the MaxCut solutions.
     """
-    prob_dist_fin_state = np.load(source2)   
-    graph = np.load(source1)
+    prob_dist_fin_state = np.load(source1)
     N_QUBITS = len(list(graph.nodes))
     #fig = plt.figure(figsize=(18, 18)) # plot the calculated values    
     fig = plt.figure(figsize = (2**N_QUBITS/2.5,20))
