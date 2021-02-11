@@ -73,3 +73,27 @@ the optimal partitions.
 Qualitatively, QAOA tries to evolve the initial state into the plane of the
 |0101>, |1010> basis states (see figure above).
 
+## Parameters Optimization
+
+The general steps in QAOA for parameters optimizations are:<br>
+  * choose QAOA-level = p and pick p-pairs parameters (&gamma;<sub>1</sub>,...,&gamma;<sub>p</sub>,&beta;<sub>1</sub>,...,&beta;<sub>p</sub>)<sub>0</sub><br>
+  * generate initial state ![equation3](https://latex.codecogs.com/gif.latex?|+_{n}\rangle%20=%20\frac{1}{\sqrt{2^n}}\sum_{z\in%20\{0,1\}^n}%20|z\rangle) (usually is chosen to be easy to be prepeared) (which gives also $B$)<br>
+  * evolve |**s**> in |**&gamma;**,**&beta;**> through 2p evolutions<br>
+  * evaluate **F<sub>p</sub>** (or only certain terms of it) through N-times computational basis measurement on |**&gamma;**,**&beta;**>, obtained as the "classical" meanvalue of the N-outcomes
+  * update the parameters through a chosen method, for example the stochastic gradient descent <br>    
+* |**&gamma;**,**&beta;**> which optimize **F<sub>p</sub>** will be obtained after these iterations (and the solutions to the problem could be seen from outcome probabilities of strings obtained in the computational basis measurement for these angles)
+
+However, for QAOA-level = 1, there's a theorem, which gives an analitical expression of the expectation of the cost function that has to be minimized, 
+[here](https://arxiv.org/pdf/1706.02998.pdf) the paper with the theorem:
+
+![eq_1](https://latex.codecogs.com/svg.latex?F_1(\gamma,\beta)%20%20=%20\frac{1}{2}%20+%20\frac{1}{4}%20(sin4\beta%20sin2\gamma)(cos^{d_u}\gamma%20+%20cos^{d_v}\gamma)%20-%20\frac{1}{4}(sin^2\beta%20cos^{d_u%20+%20d_v%20-%202\lambda_{uv}}\gamma))
+![eq_3](https://latex.codecogs.com/svg.latex?(1-cos^{\lambda_{uv}}2\gamma))
+
+* get information of the graph
+* parameter optimization:
+    * evaluate analitical exspression of $F_1(\gamma, \beta)$ from graph informations
+    * maximization may be computed through:
+        * grid search
+        * scipy built-in function
+        * other methods ...
+* optimal $(\gamma, \beta)$ will the ones that maximize $F_1$
