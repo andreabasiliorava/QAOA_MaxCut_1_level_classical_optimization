@@ -108,14 +108,14 @@ and in this special case the optimization steps are:
 
 Here follws the steps required to start the program and to plot the results:
 <ol>
- <li>First two packages has to be installed:
- <ul>
-  <li>qutip</li>
-  <li>networkx</li>
- <ul> 
- that can be achieved by typying the command below in the working shell:
- <div style=style="border:  outset green; background-color: lightblue;">python -m pip install -r requirements.txt</div>
- </li>
+<li>First two packages has to be installed:
+ * qutip
+ * networkx 
+that can be achieved by typying the command below in the working shell:
+  
+<div style=style="border:  outset green; background-color: lightblue;">python -m pip install -r requirements.txt</div>
+ 
+</li>
 
  <li>Then, the user has to choose the graph for which this method find the maximum cuts. In the file configurations.txt three are already defined, any graph can be added using the syntax of [configuration](https://github.com/andreabasiliorava/QAOA_MaxCut_1_level_classical_optimization/blob/master/configuration.txt), giving the number of nodes, the edges and also the local paths to the folders where drawing of the graph and the probability distribution of the possible configurations must be saved. 
  </li>
@@ -123,14 +123,18 @@ Here follws the steps required to start the program and to plot the results:
  <li>To obtain the final state, which contains the informations about the MaxCut solutions, and theyr probability distribution, the user has to launch the file 
 [execution](https://github.com/andreabasiliorava/QAOA_MaxCut_1_level_classical_optimization/blob/master/execution.py), which imports its parameters from [configuration](https://github.com/andreabasiliorava/QAOA_MaxCut_1_level_classical_optimization/blob/master/configuration.txt) using ConfigParser library.<br>
 The user has to specify the graph he wants to obtain solution of when launching the simulation file from the command line with the syntax:
+ 
 <div style=style="border:  outset green; background-color: lightblue;">python execution.py configuration.txt *graph_name*</div>
+
 <br>
 The obtained probability distributions are saved automatically in the ***prob_dist*** folder using their local paths.
 </li>
 
 <li>To obtain the plots of the graph and it's respective histogram with the probability distributions of the final state with the maximum cuts be the more probable configurations, the user has to lunch the [plots](https://github.com/andreabasiliorava/QAOA_MaxCut_1_level_classical_optimization/blob/master/plots.py) file with the graphs he wants.<br>
 From command line the syntax is:
+ 
 <div style=style="border:  outset green; background-color: lightblue;"> python plots.py configuration.txt *graph_name*</div>
+
 <br>
 The data are loaded from the configuration file through their local paths and then they are saved in the ***plots*** folder automatically.
  </li>
