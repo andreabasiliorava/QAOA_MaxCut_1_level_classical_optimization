@@ -124,14 +124,13 @@ The user has to specify the graph he wants to obtain solution of when launching 
  
 **python execution.py configuration.txt *graph_name***
 
-<br>
 The obtained probability distributions are saved automatically in the ***prob_dist*** folder using their local paths.
 
 4. To obtain the plots of the graph and it's respective histogram with the probability distributions of the final state with the maximum cuts be the more probable configurations, the user has to lunch the [plots](https://github.com/andreabasiliorava/QAOA_MaxCut_1_level_classical_optimization/blob/master/plots.py) file with the graphs he wants.<br>
 From command line the syntax is:
  
 **python plots.py configuration.txt *graph_name***
-<br>
+
 The data are loaded from the configuration file through their local paths and then they are saved in the ***plots*** folder automatically.
 
 Here follows how I've structured this project:
