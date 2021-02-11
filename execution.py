@@ -16,20 +16,8 @@ import sys
 #main part of the code
 
 #STEP 1: take information of the graph
-"""
-#METHOD 1: define it manually
-#butterfly graph
-N_NODES = 5
-nodes = np.arange(0, N_NODES, 1)
-edges = [(0,1),(0,2),(1,2),(2,3),(2,4),(3,4)]
-N_QUBITS = N_NODES
-graph = nx.Graph()
-graph.add_nodes_from(nodes)
-graph.add_edges_from(edges)
-"""
 
-#"""
-#METHOD 2: take information from a file
+#take information from a file
 config = configparser.ConfigParser()
 config.read(sys.argv[1])
 str_graph = sys.argv[2]
@@ -46,16 +34,6 @@ graph.add_nodes_from(nodes)
 graph.add_edges_from(edges)
 
 destination1 = config.get('paths',f"my_prob_dist_{str_graph}")
-#"""
-
-"""
-#METHOD 3: generate a random graph
-#generate random graph with at least one edge
-N_NODES = 6
-N_QUBITS = N_NODES
-graph = gr.random_graph(N_NODES)
-edges = list(graph.edges)
-"""
 
 
 #STEP 2: find optimal parameters

@@ -39,10 +39,6 @@ def graphPlot():
     """
     This method plot the graph
     """
-    #graph = np.load(source1)
-    #fig = plt.figure(figsize=(18, 18))
-    #nx.draw(graph)
-    #fig.savefig(destination1)
     colors = ['r' for node in graph.nodes()]
     pos = nx.circular_layout(graph)
     nx.draw_networkx(graph, node_color=colors, node_size=200, pos = pos, alpha=1, with_labels=True)
@@ -57,7 +53,6 @@ def prob_distPlot():
     """
     prob_dist_fin_state = np.load(source1)
     N_QUBITS = len(list(graph.nodes))
-    #fig = plt.figure(figsize=(18, 18)) # plot the calculated values    
     fig = plt.figure(figsize = (2**N_QUBITS,20))
     plt.xlabel('configuration', size=20)
     plt.ylabel('probablity', size=30)
