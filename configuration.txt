@@ -18,7 +18,6 @@ house_prob_dist_pic: ./plots/house_prob_dist.png
 square_graph_pic: ./plots/square_graph.png
 square_prob_dist_pic: ./plots/square_prob_dist.png
 
-my_prob_dist_butterfly: ./prob_dist_butterfly.npy
-my_prob_dist_house: ./prob_dist_house.npy
-my_prob_dist_square: ./prob_dist_square.npy
-
+my_prob_dist_butterfly: ./prob_dist/prob_dist_butterfly.npy
+my_prob_dist_house: ./prob_dist/prob_dist_house.npy
+my_prob_dist_square: ./prob_dist/prob_dist_square.npy

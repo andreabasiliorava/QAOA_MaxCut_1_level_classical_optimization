@@ -43,7 +43,10 @@ def graphPlot():
     #fig = plt.figure(figsize=(18, 18))
     #nx.draw(graph)
     #fig.savefig(destination1)
-    nx.draw(graph, with_labels=True)
+    colors = ['r' for node in graph.nodes()]
+    pos = nx.circular_layout(graph)
+    nx.draw_networkx(graph, node_color=colors, node_size=200, pos = pos, alpha=1, with_labels=True)
+    plt.title(f"{str_graph} graph", size=20)
     plt.savefig(destination1, dpi=300, bbox_inches='tight')
     
     
@@ -55,8 +58,12 @@ def prob_distPlot():
     prob_dist_fin_state = np.load(source1)
     N_QUBITS = len(list(graph.nodes))
     #fig = plt.figure(figsize=(18, 18)) # plot the calculated values    
-    fig = plt.figure(figsize = (2**N_QUBITS,10))
-    plt.xticks(rotation=45)
+    fig = plt.figure(figsize = (2**N_QUBITS,20))
+    plt.xlabel('configuration', size=20)
+    plt.ylabel('probablity', size=30)
+    plt.title(f"probabily distribution configurations for {str_graph} graph", size=40)
+    plt.xticks(rotation=45, size=20)
+    plt.yticks(size=30)
     xticks = range(0,2**(N_QUBITS-1))
     xtick_labels = list(map(lambda x: format(x, "0"+str(N_QUBITS)+'b'), xticks))
     plt.bar(xtick_labels,prob_dist_fin_state[:2**(N_QUBITS-1)],width = 0.5)
