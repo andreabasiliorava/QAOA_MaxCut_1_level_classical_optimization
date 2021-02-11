@@ -77,7 +77,7 @@ Qualitatively, QAOA tries to evolve the initial state into the plane of the
 
 The general steps in QAOA for parameters optimizations are:<br>
   * choose QAOA-level = p and pick p-pairs parameters (&gamma;<sub>1</sub>,...,&gamma;<sub>p</sub>,&beta;<sub>1</sub>,...,&beta;<sub>p</sub>)<sub>0</sub><br>
-  * generate initial state ![equation3](https://latex.codecogs.com/gif.latex?|+_{n}\rangle%20=%20\frac{1}{\sqrt{2^n}}\sum_{z\in%20\{0,1\}^n}%20|z\rangle) (usually is chosen to be easy to be prepeared) (which gives also $B$)<br>
+  * generate initial state |**s**> (usually is chosen to be easy to be prepeared) (which gives also $B$)<br>
   * evolve |**s**> in |**&gamma;**,**&beta;**> through 2p evolutions<br>
   * evaluate **F<sub>p</sub>** (or only certain terms of it) through N-times computational basis measurement on |**&gamma;**,**&beta;**>, obtained as the "classical" meanvalue of the N-outcomes
   * update the parameters through a chosen method, for example the stochastic gradient descent <br>    
@@ -89,11 +89,48 @@ However, for QAOA-level = 1, there's a theorem, which gives an analitical expres
 ![eq_1](https://latex.codecogs.com/svg.latex?F_1(\gamma,\beta)%20%20=%20\frac{1}{2}%20+%20\frac{1}{4}%20(sin4\beta%20sin2\gamma)(cos^{d_u}\gamma%20+%20cos^{d_v}\gamma)%20-%20\frac{1}{4}(sin^2\beta%20cos^{d_u%20+%20d_v%20-%202\lambda_{uv}}\gamma))
 ![eq_3](https://latex.codecogs.com/svg.latex?(1-cos^{\lambda_{uv}}2\gamma))
 
+so, for each edge <u,v>, we have to get:
+* d<sub>u</sub>: degree of vertex u -1
+* d<sub>v</sub>: degree of vertex v -1
+* &lambda;<sub>uv</sub>: number common neighbours of vertices u and v
+
+and in this special case the optimization steps are:
+
 * get information of the graph
 * parameter optimization:
-    * evaluate analitical exspression of $F_1(\gamma, \beta)$ from graph informations
-    * maximization may be computed through:
-        * grid search
-        * scipy built-in function
-        * other methods ...
-* optimal $(\gamma, \beta)$ will the ones that maximize $F_1$
+    * evaluate analitical exspression of F<sub>1</sub>(&gamma;, &beta;) from graph informations
+    * maximization of the function
+* optimal (&gamma;, &beta;) will the ones that maximize F<sub>1</sub>
+
+<hr>
+
+## Structure of the project
+
+Here follws the steps required to start the program and to plot the results:
+
+1. First two packages has to be installed:
+ * qutip
+ * networkx <br>
+that can be achieved by typying the command below in the working shell:
+  
+**python -m pip install -r requirements.txt**
+ 
+
+2. Then, the user has to choose the graph for which this method find the maximum cuts. In the file configurations.txt three are already defined, any graph can be added using the syntax of [configuration](https://github.com/andreabasiliorava/QAOA_MaxCut_1_level_classical_optimization/blob/master/configuration.txt), giving the number of nodes, the edges and also the local paths to the folders where drawing of the graph and the probability distribution of the possible configurations must be saved. 
+
+3. To obtain the final state, which contains the informations about the MaxCut solutions, and theyr probability distribution, the user has to launch the file 
+[execution](https://github.com/andreabasiliorava/QAOA_MaxCut_1_level_classical_optimization/blob/master/execution.py), which imports its parameters from [configuration](https://github.com/andreabasiliorava/QAOA_MaxCut_1_level_classical_optimization/blob/master/configuration.txt) using ConfigParser library.<br>
+The user has to specify the graph he wants to obtain solution of when launching the simulation file from the command line with the syntax:
+ 
+**python execution.py configuration.txt *graph_name***
+
+The obtained probability distributions are saved automatically in the ***prob_dist*** folder using their local paths.
+
+4. To obtain the plots of the graph and it's respective histogram with the probability distributions of the final state with the maximum cuts be the more probable configurations, the user has to lunch the [plots](https://github.com/andreabasiliorava/QAOA_MaxCut_1_level_classical_optimization/blob/master/plots.py) file with the graphs he wants.<br>
+From command line the syntax is:
+ 
+**python plots.py configuration.txt *graph_name***
+
+The data are loaded from the configuration file through their local paths and then they are saved in the ***plots*** folder automatically.
+
+Here follows how I've structured this project:
