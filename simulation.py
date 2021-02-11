@@ -45,7 +45,7 @@ graph = nx.Graph()
 graph.add_nodes_from(nodes)
 graph.add_edges_from(edges)
 
-destination1 = config.get('paths','my_prob_dist')
+destination1 = config.get('paths',f"my_prob_dist_{str_graph}")
 #"""
 
 """

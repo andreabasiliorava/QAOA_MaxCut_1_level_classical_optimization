@@ -28,10 +28,10 @@ graph = nx.Graph()
 graph.add_nodes_from(nodes)
 graph.add_edges_from(edges)
 
-source1 = configu.get('paths','my_prob_dist')
+source1 = configu.get('paths',f"my_prob_dist_{str_graph}")
 
-destination1 = configu.get('paths','graph_pic')
-destination2 = configu.get('paths','prob_dist_pic')
+destination1 = configu.get('paths',f"{str_graph}_graph_pic")
+destination2 = configu.get('paths',f"{str_graph}_prob_dist_pic")
 
 
 #Plot the graph

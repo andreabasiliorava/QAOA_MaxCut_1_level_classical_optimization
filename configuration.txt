@@ -11,7 +11,14 @@ n_nodes = 4
 edges = (0,1);(1,2);(2,3);(3,0)
 
 [paths]
-graph_pic: ./images/graph.png
-prob_dist_pic: ./images/prob_dist.png
+butterfly_graph_pic: ./plots/butterfly_graph.png
+butterfly_prob_dist_pic: ./plots/butterfly_prob_dist.png
+house_graph_pic: ./plots/house_graph.png
+house_prob_dist_pic: ./plots/house_prob_dist.png
+square_graph_pic: ./plots/square_graph.png
+square_prob_dist_pic: ./plots/square_prob_dist.png
 
-my_prob_dist: ./prob_dist.npy
+my_prob_dist_butterfly: ./prob_dist_butterfly.npy
+my_prob_dist_house: ./prob_dist_house.npy
+my_prob_dist_square: ./prob_dist_square.npy
+
