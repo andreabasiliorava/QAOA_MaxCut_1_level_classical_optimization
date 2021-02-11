@@ -1,0 +1,14 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Feb 11 18:36:18 2021
+
+@author: AndreaB.Rava
+"""
+
+#
+####### requirements.txt #######
+#
+###### Requirements without Version Specifiers ######
+qutip
+networkx
+#
