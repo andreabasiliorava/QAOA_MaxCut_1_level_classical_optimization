@@ -74,9 +74,9 @@ def n_sigmax(n_qubits, qubit_pos):
 
     Parameters
     ----------
-    n_qubits : TYPE
+    n_qubits : int
         number of qubits the states is composed of.
-    qubit_pos : TYPE
+    qubit_pos : int
         qubit on which the sigmax operator acts (position starts at '0').
 
     Raises
@@ -109,9 +109,9 @@ def n_sigmay(n_qubits, qubit_pos):
 
     Parameters
     ----------
-    n_qubits : TYPE
+    n_qubits : int
         number of qubits the states is composed of.
-    qubit_pos : TYPE
+    qubit_pos : int
         qubit on which the sigmax operator acts (position starts at '0').
 
     Raises
@@ -144,9 +144,9 @@ def n_sigmaz(n_qubits, qubit_pos):
 
     Parameters
     ----------
-    n_qubits : TYPE
+    n_qubits : int
         number of qubits the states is composed of.
-    qubit_pos : TYPE
+    qubit_pos : int
         qubit on which the sigmax operator acts (position starts at '0').
 
     Raises

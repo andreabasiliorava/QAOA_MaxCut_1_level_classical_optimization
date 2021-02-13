@@ -61,7 +61,7 @@ def prob_dist_plot():
     xticks = range(0,2**(N_QUBITS-1))
     xtick_labels = list(map(lambda x: format(x, "0"+str(N_QUBITS)+'b'), xticks))
     plt.bar(xtick_labels,prob_dist_fin_state[:2**(N_QUBITS-1)],width = 0.5)
-    fig.savefig(destination2)
+    fig.savefig(destination2, bbox_inches='tight')
 
 graph_plot()
 prob_dist_plot()
