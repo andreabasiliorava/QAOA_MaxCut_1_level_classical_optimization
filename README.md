@@ -49,7 +49,7 @@ Using the _2p_ angle parameters
 ![eq_par](https://latex.codecogs.com/svg.latex?\boldsymbol{\gamma}=(\gamma_1,\gamma_2,...,\gamma_p),%20\boldsymbol{\beta}=(\beta_1,%20\beta_2,...,%20\beta_p))
 we perform a sequence of operations on our initial state:
 
-![equation3](https://latex.codecogs.com/svg.latex?|\boldsymbol{\gamma},\boldsymbol{\beta}\rangle%20=%20U_{B_p}U_{C_p}U_{B_{p-1}}U_{C_{p-1}}...U_{B_1}U_{C_1}|+_n\rangle)
+![equation3_1](https://latex.codecogs.com/svg.latex?|\boldsymbol{\gamma},\boldsymbol{\beta}\rangle%20=%20U(\beta_p)U(\gamma_p)...U(\beta_1)U(\gamma_1)|+_n\rangle)
 
 where the operators have the explicit forms
 
