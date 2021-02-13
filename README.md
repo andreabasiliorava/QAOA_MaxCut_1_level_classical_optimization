@@ -101,9 +101,7 @@ and in this special case the optimization steps are:
     * evaluate analitical exspression of F<sub>1</sub>(&gamma;, &beta;) from graph informations
     * maximization of the function
 * optimal (&gamma;, &beta;) will the ones that maximize F<sub>1</sub>
-
 <hr>
-
 ## Structure of the project
 
 Here follws the steps required to start the program and to plot the results:
@@ -115,7 +113,6 @@ that can be achieved by typying the command below in the working shell:
   
 **python -m pip install -r requirements.txt**
  
-
 2. Then, the user has to choose the graph for which this method find the maximum cuts. In the file configurations.txt three are already defined, any graph can be added using the syntax of [configuration](https://github.com/andreabasiliorava/QAOA_MaxCut_1_level_classical_optimization/blob/master/configuration.txt), giving the number of nodes, the edges and also the local paths to the folders where drawing of the graph and the probability distribution of the possible configurations must be saved. 
 
 3. To obtain the final state, which contains the informations about the MaxCut solutions, and theyr probability distribution, the user has to launch the file 
@@ -126,7 +123,7 @@ The user has to specify the graph he wants to obtain solution of when launching 
 
 The obtained probability distributions are saved automatically in the ***prob_dist*** folder using their local paths.
 
-4. To obtain the plots of the graph and it's respective histogram with the probability distributions of the final state with the maximum cuts be the more probable configurations, the user has to lunch the [plots](https://github.com/andreabasiliorava/QAOA_MaxCut_1_level_classical_optimization/blob/master/plots.py) file with the graphs he wants.<br>
+4. To obtain the plots of the graph and it's respective histogram with the probability distributions of the final state with the maximum cuts be the more probable configurations, the user has to launch the [plots](https://github.com/andreabasiliorava/QAOA_MaxCut_1_level_classical_optimization/blob/master/plots.py) file with the graphs he wants.<br>
 From command line the syntax is:
  
 **python plots.py configuration.txt *graph_name***
@@ -134,3 +131,29 @@ From command line the syntax is:
 The data are loaded from the configuration file through their local paths and then they are saved in the ***plots*** folder automatically.
 
 Here follows how I've structured this project:
+
+* All the quantum objects are initialized through the Qobj() class defined in the ***qutip*** library, here the [qutip documentation](http://qutip.org/docs/latest/index.html), in the documentation there are also the required packages for running qutip.<br>
+The graphs are initialized through the Graph() class defined in the ***networkx*** library, here the [networkx documentation](https://networkx.org/documentation/stable//index.html).
+The file [requirements](https://github.com/andreabasiliorava/QAOA_MaxCut_1_level_classical_optimization/blob/master/requirements.txt) must be executed for the installation of these two packages.
+
+* In the file [qucompsys](https://github.com/andreabasiliorava/QAOA_MaxCut_1_level_classical_optimization/blob/master/qucompsys.py) I've defined functions needed to operate with composite systems of multiple qubits (obtained through the *tensor()* function of qutip), three that operates the Pauli matrices &sigma;<sub>y</sub>, &sigma;<sub>y</sub>, &sigma;<sub>z</sub> on the *i*-th qubit of a n-qubits tensor and one that apply the identity. There's also a function that, given a quantum state, it returns an array containing the probability distribution of the computational basis vectors of the space it belongs to. A function that generates n-random qubits, used for testing proper behaviour of other defined functions.
+
+* In the file [graphs](https://github.com/andreabasiliorava/QAOA_MaxCut_1_level_classical_optimization/blob/master/graphs.py) I've defined two functions needed to get information about a graph, one which returns the degree of a node and one which returns the number of common neighbours of an edge. Thre's also another function which generates a random graph, used for testing proper behaviour of other defined functions.
+
+* In the file [qaoa](https://github.com/andreabasiliorava/QAOA_MaxCut_1_level_classical_optimization/blob/master/qaoa.py) I've defined all the function needed for the QAOA steps to obtain the final state |**&gamma;**,**&beta;**>, a function which evaluates the classical cost function given a configuration and the graph information, a function that evaluates the analitical expression of **F<sub>1</sub>** for a given pair of &gamma; and &beta;. Also, it contains the functions needed to obtain the final state: one which initialize the intial state (it returns a quantum object obtained as the tensor product of the single qubit states |+>), two which define the mixing and problem Hamiltonians and another one which returns the evolution oprator U(**&gamma;**,**&beta;**), that has to be applyed to the intial state.
+
+* In the file [testing](https://github.com/andreabasiliorava/QAOA_MaxCut_1_level_classical_optimization/blob/master/testing.py) I've tested all the qucompsys, graphs and qaoa functions to ensure that all of them work properly, using pytest testing, with the aid of hypothesis testing.
+
+* In the file [configuration](https://github.com/andreabasiliorava/QAOA_MaxCut_1_level_classical_optimization/blob/master/configuration.txt) there are the definition of three graphs (butterfly, square and house graphs). Furthermore, there are the local paths in order to load the array data and to save them as images and graphs. It's a .txt file that is imported in execution file.
+
+* In the file [execution](https://github.com/andreabasiliorava/QAOA_MaxCut_1_level_classical_optimization/blob/master/execution.py) there is the main part of the code, where the steps of the 1-level QAOA for MAxCut are performed using functions defined in the qaoa, qucompsys and graphs files. First is defined the graph, then the optimal parameters are obtain through a grid search method and, after have intialized the initial state, the final state is obtained by applying the evolution operator to the intial state with the optimal parameters obtained in the grid search step. The probability distribution of the configurations contained in the final state are saved in a file. Here I used the ConfigParser library in order to import the configuration file from command line, and passing its parameters to the program. 
+
+* In the file [plots](https://github.com/andreabasiliorava/QAOA_MaxCut_1_level_classical_optimization/blob/master/plots.py) there are two functions that respectively plot the graph and the probability distributions of all the possible configurations of a cut applyed to the graph, loading the data of the graph from command line.
+
+### Examples of results for the square graph used as the introductory example:
+
+<img src="./images/square_graph.png" alt="drawing" width="400" class="center">
+
+<img src="./images/square_prob_dist.png" alt="drawing" width="600" class="center">
+
+and it can be seen that the most probable configuration is the one corresponding to the maximum cut of the graph.
