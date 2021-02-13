@@ -5,13 +5,13 @@ Created on Mon Jan 25 13:09:06 2021
 @author: AndreaB.Rava
 """
 
+import configparser
+import sys
 import qutip as qu
 import qaoa
 import qucompsys as qucs
 import numpy as np
-import configparser
 import networkx as nx
-import sys
 
 #main part of the code
 
@@ -37,19 +37,21 @@ destination1 = config.get('paths',f"my_prob_dist_{str_graph}")
 
 
 #STEP 2: find optimal parameters
+
 # Grid search for the maximizing variables
-step_size = 0.01
-a_gamma         = np.arange(0.0, np.pi, step_size)
-a_beta          = np.arange(0.0, np.pi/2, step_size)
+STEP_SIZE = 0.01
+a_gamma         = np.arange(0.0, np.pi, STEP_SIZE)
+a_beta          = np.arange(0.0, np.pi/2, STEP_SIZE)
 a_gamma, a_beta = np.meshgrid(a_gamma, a_beta, indexing='xy')
 grid_f_1 = qaoa.analitical_f_1(a_gamma, a_beta, graph, edges)
 result = np.where(grid_f_1 == np.amax(grid_f_1))
 a      = list(zip(result[0],result[1]))[0]
-optimal_gamma   = a[1]*step_size
-optimal_beta  = a[0]*step_size
+optimal_gamma   = a[1]*STEP_SIZE
+optimal_beta  = a[0]*STEP_SIZE
 
 
 #STEP 3: obtain final state with solutions
+
 # initial state (as density matrix):
 init_state = qaoa.initial_state(N_QUBITS)
 dm_init_state = qu.ket2dm(init_state)

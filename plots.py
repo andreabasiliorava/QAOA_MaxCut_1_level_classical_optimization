@@ -7,10 +7,10 @@ Created on Wed Feb 10 15:43:11 2021
 
 # -*- coding: utf-8 -*-
 
+import configparser
+import sys
 import numpy as np
 import matplotlib.pyplot as plt
-import sys
-import configparser
 import networkx as nx
 
 configu = configparser.ConfigParser()
@@ -35,7 +35,7 @@ destination2 = configu.get('paths',f"{str_graph}_prob_dist_pic")
 
 
 #Plot the graph
-def graphPlot():
+def graph_plot():
     """
     This method plot the graph
     """
@@ -44,15 +44,14 @@ def graphPlot():
     nx.draw_networkx(graph, node_color=colors, node_size=200, pos = pos, alpha=1, with_labels=True)
     plt.title(f"{str_graph} graph", size=20)
     plt.savefig(destination1, dpi=300, bbox_inches='tight')
-    
-    
-def prob_distPlot():
-    """ 
-    This method plots the probability distribution of the final state 
+
+
+def prob_dist_plot():
+    """
+    This method plots the probability distribution of the final state
     which contain the MaxCut solutions.
     """
     prob_dist_fin_state = np.load(source1)
-    N_QUBITS = len(list(graph.nodes))
     fig = plt.figure(figsize = (2**N_QUBITS,20))
     plt.xlabel('configuration', size=20)
     plt.ylabel('probablity', size=30)
@@ -64,5 +63,5 @@ def prob_distPlot():
     plt.bar(xtick_labels,prob_dist_fin_state[:2**(N_QUBITS-1)],width = 0.5)
     fig.savefig(destination2)
 
-graphPlot()
-prob_distPlot()
+graph_plot()
+prob_dist_plot()

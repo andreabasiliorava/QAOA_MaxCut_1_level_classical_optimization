@@ -47,7 +47,7 @@ def test_analitical_f_1():
     optimal_gamma = 1.0472
     optimal_beta = 0.392699
     exp = 1.64952
-    obs = -qaoa.analitical_f_1([optimal_gamma, optimal_beta], graph, edges)
+    obs = qaoa.analitical_f_1(optimal_gamma, optimal_beta, graph, edges)
     assert_equal(exp, round(obs, 5))
 
 
