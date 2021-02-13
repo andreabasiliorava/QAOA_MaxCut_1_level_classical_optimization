@@ -8,7 +8,7 @@ The aim of MaxCut is to maximize the number of edges in a graph that are â€œcutâ
 
 Consider a graph with <b>m</b> edges and ***n*** vertices. We seek the partition ***z*** of the vertices into two sets A and B which maximizes
 
-![equation1](https://latex.codecogs.com/gif.latex?C(z)%20=%20\sum_{\alpha%20=1}^{m}C_{\alpha}(z))
+![equation1](https://latex.codecogs.com/svg.latex?C(z)%20=%20\sum_{\alpha%20=1}^{m}C_{\alpha}(z))
 
 where ***C*** counts the number of edges cut. <b><i>C</i></b><sub>&alpha;</sub>(***z***)=1 if ***z*** places one vertex from the
 &alpha;<sup>th</sup> edge in set A and the other in set B, and ***C***<sub>&alpha;</sub>(***z***)=0 otherwise.
@@ -32,7 +32,7 @@ The Quantum Approximate Optimization Algorithm (QAOA) is a quantum algorithm whi
 Firstly, denoting the partitions using computational basis states |***z***>, we can represent the terms in the
 objective function as operators acting on these states
 
-![equation2](https://latex.codecogs.com/gif.latex?C_\alpha%20=%20\frac{1}{2}\left(1-\sigma_{z}^j\sigma_{z}^k\right))
+![equation2](https://latex.codecogs.com/svg.latex?C_\alpha%20=%20\frac{1}{2}\left(1-\sigma_{z}^j\sigma_{z}^k\right))
 
 where the &alpha;<sup>th</sup> edge is between vertices (j,k).
 ***C***<sub>&alpha;</sub> has eigenvalue 1 if and only if the j<sup>th</sup> and k<sup>th</sup>
@@ -41,7 +41,7 @@ The objective function ***C*** can be considered a diagonal operator with intege
 
 QAOA starts with a uniform superposition over the ***n*** bitstring basis states,
 
-![equation3](https://latex.codecogs.com/gif.latex?|+_{n}\rangle%20=%20\frac{1}{\sqrt{2^n}}\sum_{z\in%20\{0,1\}^n}%20|z\rangle)
+![equation3](https://latex.codecogs.com/svg.latex?|+_{n}\rangle%20=%20\frac{1}{\sqrt{2^n}}\sum_{z\in%20\{0,1\}^n}%20|z\rangle)
 
 We aim to explore the space of bitstring states for a superposition which is likely to yield a
 large value for the ***C*** operator upon performing a measurement in the computational basis.
@@ -49,11 +49,11 @@ Using the _2p_ angle parameters
 ![eq_par](https://latex.codecogs.com/svg.latex?\boldsymbol{\gamma}=(\gamma_1,\gamma_2,...,\gamma_p),%20\boldsymbol{\beta}=(\beta_1,%20\beta_2,...,%20\beta_p))
 we perform a sequence of operations on our initial state:
 
-![equation3](https://latex.codecogs.com/gif.latex?|\boldsymbol{\gamma},\boldsymbol{\beta}\rangle%20=%20U_{B_p}U_{C_p}U_{B_{p-1}}U_{C_{p-1}}...U_{B_1}U_{C_1}|+_n\rangle)
+![equation3](https://latex.codecogs.com/svg.latex?|\boldsymbol{\gamma},\boldsymbol{\beta}\rangle%20=%20U_{B_p}U_{C_p}U_{B_{p-1}}U_{C_{p-1}}...U_{B_1}U_{C_1}|+_n\rangle)
 
 where the operators have the explicit forms
 
-![equation4](https://latex.codecogs.com/gif.latex?U_{B_l}%20=%20e^{-i\beta_lB}%20=%20\prod_{j=1}^n%20e^{-i\beta_l\sigma_x^j},%20\\%20U_{C_l}%20=%20e^{-i\gamma_lC}%20=%20\prod_{\text{edge%20(j,k)}}%20e^{-i\gamma_l(1-\sigma_z^j\sigma_z^k)/2})
+![equation4](https://latex.codecogs.com/svg.latex?U_{B_l}%20=%20e^{-i\beta_lB}%20=%20\prod_{j=1}^n%20e^{-i\beta_l\sigma_x^j},%20\\%20U_{C_l}%20=%20e^{-i\gamma_lC}%20=%20\prod_{\text{edge%20(j,k)}}%20e^{-i\gamma_l(1-\sigma_z^j\sigma_z^k)/2})
 
 In other words, we make _p_ layers of parametrized ***U<sub>B</sub>U<sub>C</sub>*** gates.
 These can be implemented on a quantum circuit using the gates depicted below, up to an irrelevant constant
@@ -112,22 +112,22 @@ Here follws the steps required to start the program and to plot the results:
  * networkx <br>
 that can be achieved by typying the command below in the working shell:
   
-**python -m pip install -r requirements.txt**
+`python -m pip install -r requirements.txt`
  
-2. Then, the user has to choose the graph for which this method find the maximum cuts. In the file configurations.txt three are already defined, any graph can be added using the syntax of [configuration](https://github.com/andreabasiliorava/QAOA_MaxCut_1_level_classical_optimization/blob/master/configuration.txt), giving the number of nodes, the edges and also the local paths to the folders where drawing of the graph and the probability distribution of the possible configurations must be saved. 
+2. Then, the user has to choose the graph for which this method finds the maximum cuts. In the file configurations.txt three are already defined, any graph can be added using the syntax of [configuration](https://github.com/andreabasiliorava/QAOA_MaxCut_1_level_classical_optimization/blob/master/configuration.txt), giving the number of nodes, the edges and also the local paths to the folders where drawing of the graph and the probability distribution of the possible configurations must be saved. 
 
-3. To obtain the final state, which contains the informations about the MaxCut solutions, and theyr probability distribution, the user has to launch the file 
+3. To obtain the final state, which contains the informations about the MaxCut solutions, and their probability distribution, the user has to launch the file 
 [execution](https://github.com/andreabasiliorava/QAOA_MaxCut_1_level_classical_optimization/blob/master/execution.py), which imports its parameters from [configuration](https://github.com/andreabasiliorava/QAOA_MaxCut_1_level_classical_optimization/blob/master/configuration.txt) using ConfigParser library.<br>
 The user has to specify the graph he wants to obtain solution of when launching the simulation file from the command line with the syntax:
  
-**python execution.py configuration.txt *graph_name***
+`python execution.py configuration.txt *graph_name*`
 
 The obtained probability distributions are saved automatically in the ***prob_dist*** folder using their local paths.
 
 4. To obtain the plots of the graph and it's respective histogram with the probability distributions of the final state with the maximum cuts be the more probable configurations, the user has to launch the [plots](https://github.com/andreabasiliorava/QAOA_MaxCut_1_level_classical_optimization/blob/master/plots.py) file with the graphs he wants.<br>
 From command line the syntax is:
  
-**python plots.py configuration.txt *graph_name***
+`python plots.py configuration.txt *graph_name*`
 
 The data are loaded from the configuration file through their local paths and then they are saved in the ***plots*** folder automatically.
 
