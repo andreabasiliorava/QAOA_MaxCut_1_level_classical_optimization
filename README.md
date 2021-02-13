@@ -86,8 +86,7 @@ The general steps in QAOA for parameters optimizations are:<br>
 However, for QAOA-level = 1, there's a theorem, which gives an analitical expression of the expectation of the cost function that has to be minimized, 
 [here](https://arxiv.org/pdf/1706.02998.pdf) the paper with the theorem:
 
-![eq_1](https://latex.codecogs.com/svg.latex?F_1(\gamma,\beta)%20%20=%20\frac{1}{2}%20+%20\frac{1}{4}%20(sin4\beta%20sin2\gamma)(cos^{d_u}\gamma%20+%20cos^{d_v}\gamma)%20-%20\frac{1}{4}(sin^2\beta%20cos^{d_u%20+%20d_v%20-%202\lambda_{uv}}\gamma))
-![eq_3](https://latex.codecogs.com/svg.latex?(1-cos^{\lambda_{uv}}2\gamma))
+![eq_1](https://latex.codecogs.com/svg.latex?F_1(\gamma,\beta)%20%20=%20\frac{1}{2}%20+%20\frac{1}{4}%20(sin4\beta%20sin2\gamma)(cos^{d_u}\gamma%20+%20cos^{d_v}\gamma)%20-%20\frac{1}{4}(sin^2\beta%20cos^{d_u%20+%20d_v%20-%202\lambda_{uv}}\gamma)) ![eq_3](https://latex.codecogs.com/svg.latex?(1-cos^{\lambda_{uv}}2\gamma))
 
 so, for each edge <u,v>, we have to get:
 * d<sub>u</sub>: degree of vertex u -1
@@ -101,7 +100,9 @@ and in this special case the optimization steps are:
     * evaluate analitical exspression of F<sub>1</sub>(&gamma;, &beta;) from graph informations
     * maximization of the function
 * optimal (&gamma;, &beta;) will the ones that maximize F<sub>1</sub>
+
 <hr>
+
 ## Structure of the project
 
 Here follws the steps required to start the program and to plot the results:
