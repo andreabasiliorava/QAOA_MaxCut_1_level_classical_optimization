@@ -7,6 +7,7 @@ Created on Mon Jan 25 13:09:06 2021
 
 import configparser
 import sys
+from pathlib import Path
 import qutip as qu
 import qaoa
 import qucompsys as qucs
@@ -18,10 +19,11 @@ import networkx as nx
 #STEP 1: take information of the graph
 
 #take information from a file
+Path("prob_dist").mkdir(parents=True, exist_ok=True)
 config = configparser.ConfigParser()
 config.read(sys.argv[1])
 str_graph = sys.argv[2]
-str_N_NODES = config.get(str_graph, 'N_NODES')
+str_N_NODES = config.get(str_graph, 'n_nodes')
 str_edges = config.get(str_graph, 'edges')
 N_NODES = int(str_N_NODES)
 N_QUBITS = N_NODES

@@ -9,14 +9,16 @@ Created on Wed Feb 10 15:43:11 2021
 
 import configparser
 import sys
+from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
 import networkx as nx
 
+Path("plots").mkdir(parents=True, exist_ok=True)
 configu = configparser.ConfigParser()
 configu.read(sys.argv[1])
 str_graph = sys.argv[2]
-str_N_NODES = configu.get(str_graph, 'N_NODES')
+str_N_NODES = configu.get(str_graph, 'n_nodes')
 str_edges = configu.get(str_graph, 'edges')
 N_NODES = int(str_N_NODES)
 N_QUBITS = N_NODES
