@@ -1,4 +1,4 @@
-# QAOA for MaxCut
+# Classical implementation of QAOA: special case of level-1 QAOA for MaxCut 
 
 ## The MaxCut problem
 
@@ -56,12 +56,10 @@ where the operators have the explicit forms
 ![equation4](https://latex.codecogs.com/svg.latex?U_{B_l}%20=%20e^{-i\beta_lB}%20=%20\prod_{j=1}^n%20e^{-i\beta_l\sigma_x^j},%20\\%20U_{C_l}%20=%20e^{-i\gamma_lC}%20=%20\prod_{\text{edge%20(j,k)}}%20e^{-i\gamma_l(1-\sigma_z^j\sigma_z^k)/2})
 
 In other words, we make _p_ layers of parametrized ***U<sub>B</sub>U<sub>C</sub>*** gates.
-These can be implemented on a quantum circuit using the gates depicted below, up to an irrelevant constant
-that gets absorbed into the parameters.
 
 Let **F<sub>p</sub>** = <**&gamma;**,**&beta;**|***C***|**&gamma;**,**&beta;**> be the expectation of the objective operator.
-In the next section, we will use PennyLane to perform classical optimization
-over the circuit parameters (**&gamma;**,**&beta;**).
+The idea of the QAOA is to perform an optimization method  
+over the circuit parameters (**&gamma;**,**&beta;**) to maximize **F<sub>p</sub>**.
 This will specify a state |**&gamma;**,**&beta;**> which is
 likely to yield an approximately optimal partition |z> upon performing a measurement in the
 computational basis.
@@ -73,6 +71,8 @@ the optimal partitions.
 Qualitatively, QAOA tries to evolve the initial state into the plane of the
 |0101>, |1010> basis states (see figure above).
 
+For reference, see [here](https://arxiv.org/pdf/1411.4028.pdf) the first published article where the QAOA algorithm was introduced.
+
 ## Parameters Optimization
 
 The general steps in QAOA for parameters optimizations are:<br>
@@ -83,7 +83,7 @@ The general steps in QAOA for parameters optimizations are:<br>
   * update the parameters through a chosen method, for example the stochastic gradient descent <br>    
 * |**&gamma;**,**&beta;**> which optimize **F<sub>p</sub>** will be obtained after these iterations (and the solutions to the problem could be seen from outcome probabilities of strings obtained in the computational basis measurement for these angles)
 
-However, for QAOA-level = 1, there's a theorem, which gives an analitical expression of the expectation of the cost function that has to be minimized, 
+However, for QAOA-level = 1 on MaxCut, there's a theorem, which gives an analitical expression of the expectation of the cost function that has to be minimized, 
 [here](https://arxiv.org/pdf/1706.02998.pdf) the paper with the theorem:
 
 ![eq_1](https://latex.codecogs.com/svg.latex?F_1(\gamma,\beta)%20%20=%20\frac{1}{2}%20+%20\frac{1}{4}%20(sin4\beta%20sin2\gamma)(cos^{d_u}\gamma%20+%20cos^{d_v}\gamma)%20-%20\frac{1}{4}(sin^2\beta%20cos^{d_u%20+%20d_v%20-%202\lambda_{uv}}\gamma)) ![eq_3](https://latex.codecogs.com/svg.latex?(1-cos^{\lambda_{uv}}2\gamma))
@@ -107,7 +107,7 @@ and in this special case the optimization steps are:
 
 Here follws the steps required to start the program and to plot the results:
 
-1. First two packages has to be installed:
+1. First, two packages has to be installed:
  * qutip
  * networkx <br>
 that can be achieved by typying the command below in the working shell:
@@ -141,7 +141,7 @@ The file [requirements](https://github.com/andreabasiliorava/QAOA_MaxCut_1_level
 
 * In the file [graphs](https://github.com/andreabasiliorava/QAOA_MaxCut_1_level_classical_optimization/blob/master/graphs.py) I've defined two functions needed to get information about a graph, one which returns the degree of a node and one which returns the number of common neighbours of an edge. Thre's also another function which generates a random graph, used for testing proper behaviour of other defined functions.
 
-* In the file [qaoa](https://github.com/andreabasiliorava/QAOA_MaxCut_1_level_classical_optimization/blob/master/qaoa.py) I've defined all the function needed for the QAOA steps to obtain the final state |**&gamma;**,**&beta;**>, a function which evaluates the classical cost function given a configuration and the graph information, a function that evaluates the analitical expression of **F<sub>1</sub>** for a given pair of &gamma; and &beta;. Also, it contains the functions needed to obtain the final state: one which initialize the intial state (it returns a quantum object obtained as the tensor product of the single qubit states |+>), two which define the mixing and problem Hamiltonians and another one which returns the evolution oprator U(**&gamma;**,**&beta;**), that has to be applyed to the intial state.
+* In the file [qaoa](https://github.com/andreabasiliorava/QAOA_MaxCut_1_level_classical_optimization/blob/master/qaoa.py) I've defined all the function needed for the QAOA steps to obtain the final state |**&gamma;**,**&beta;**>, a function which evaluates the classical cost function given a configuration and the graph information, a function that evaluates the analitical expression of **F<sub>1</sub>** for a given pair of &gamma; and &beta; and a function which finds it's optimal angles via a grid search method. Also, it contains the functions needed to obtain the final state: one which initialize the intial state (it returns a quantum object obtained as the tensor product of the single qubit states |+>), two which define the mixing and problem Hamiltonians and another one which returns the evolution oprator U(**&gamma;**,**&beta;**), that has to be applyed to the intial state.
 
 * In the file [testing](https://github.com/andreabasiliorava/QAOA_MaxCut_1_level_classical_optimization/blob/master/testing.py) I've tested all the qucompsys, graphs and qaoa functions to ensure that all of them work properly, using pytest testing, with the aid of hypothesis testing.
 
