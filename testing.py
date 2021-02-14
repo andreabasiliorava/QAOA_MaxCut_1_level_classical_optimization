@@ -51,7 +51,7 @@ def test_analitical_f_1():
     assert_equal(exp, round(obs, 5))
 
 
-@given(n_qubits=st.integers(1,5))
+@given(n_qubits=st.integers(1,8))
 @settings(deadline=None)
 def test_initial_state(n_qubits):
     #Initialazing the initial state
@@ -79,7 +79,8 @@ def test_initial_state(n_qubits):
         obs = np.abs(state.full()[i][0])
         assert_equal(round(exp,15),round(obs,15))
 
-@given(n_qubits=st.integers(2,5))
+@given(n_qubits=st.integers(2,8))
+@settings(deadline=None)
 def test_mix_hamilt(n_qubits):
     #generate a generic n-qubits state
     list_gen_state = qucs.n_rand_qubits(n_qubits)
@@ -93,7 +94,8 @@ def test_mix_hamilt(n_qubits):
     assert_equal(obs,exp)
 
 
-@given(n_qubits=st.integers(2,5))
+@given(n_qubits=st.integers(2,8))
+@settings(deadline=None)
 def test_prob_hamilt(n_qubits):
     #generate a generic n-qubits state
     list_gen_state = qucs.n_rand_qubits(n_qubits)
@@ -114,7 +116,7 @@ def test_prob_hamilt(n_qubits):
     assert_equal(obs,exp)
 
 
-@given(n_qubits=st.integers(2,5),n_levels=st.integers(2,5))
+@given(n_qubits=st.integers(2,8),n_levels=st.integers(2,5))
 @settings(deadline=None)
 def test_evolution_operator(n_qubits, n_levels):
     #generate random parameters
@@ -137,13 +139,13 @@ def test_evolution_operator(n_qubits, n_levels):
         u_mix_hamilt_i = (-complex(0,betas[i])*qaoa.mix_hamilt(n_qubits)).expm()
         u_prob_hamilt_i = (-complex(0,gammas[i])*qaoa.prob_hamilt(n_qubits, edges)).expm()
         exp = u_mix_hamilt_i*u_prob_hamilt_i*exp
-    assert_equal(exp, obs)
+    assert (np.round(np.array(exp.full()), 8) == (np.round(np.array(obs.full()), 8))).all()
     #test if it evolves a state for known parameters
     exp = qu.qload('final_state_simple_graph_p=1')
     obs = qaoa.evolution_operator(3, [(0,1),(1,2)], [1.0], [0.4])*qaoa.initial_state(3)
 
 
-@given(n_qubits=st.integers(1,5))
+@given(n_qubits=st.integers(1,8))
 @settings(deadline=None)
 def test_n_ranf_qubits(n_qubits):
     #Initialazing the initial state
@@ -160,7 +162,8 @@ def test_n_ranf_qubits(n_qubits):
         assert_equal(exp,obs)
 
 
-@given(n_qubits=st.integers(2,5))
+@given(n_qubits=st.integers(2,8))
+@settings(deadline=None)
 def test_n_qeye(n_qubits):
     #generate a generic n-qubits state
     dimensions = [[],[]]
@@ -176,7 +179,8 @@ def test_n_qeye(n_qubits):
     assert_equal(exp,obs)
 
 
-@given(n_qubits=st.integers(2,5))
+@given(n_qubits=st.integers(2,8))
+@settings(deadline=None)
 def test_n_sigmax(n_qubits):
     #generate a generic n-qubits state
     list_gen_state = qucs.n_rand_qubits(n_qubits)
@@ -194,7 +198,8 @@ def test_n_sigmax(n_qubits):
     assert_equal(exp, obs)
 
 
-@given(n_qubits=st.integers(2,5))
+@given(n_qubits=st.integers(2,8))
+@settings(deadline=None)
 def test_n_sigmay(n_qubits):
     #generate a generic n-qubits state
     list_gen_state = qucs.n_rand_qubits(n_qubits)
@@ -212,7 +217,8 @@ def test_n_sigmay(n_qubits):
     assert_equal(exp, obs)
 
 
-@given(n_qubits=st.integers(2,5))
+@given(n_qubits=st.integers(2,8))
+@settings(deadline=None)
 def test_n_sigmaz(n_qubits):
     #generate a generic n-qubits state
     list_gen_state = qucs.n_rand_qubits(n_qubits)
@@ -230,7 +236,8 @@ def test_n_sigmaz(n_qubits):
     assert_equal(exp, obs)
 
 
-@given(n_nodes=st.integers(2,5))
+@given(n_nodes=st.integers(2,8))
+@settings(deadline=None)
 def test_random_graph(n_nodes):
     # test if random_graph has n_nodes
     obs = len(list(gr.random_graph(n_nodes).nodes))
