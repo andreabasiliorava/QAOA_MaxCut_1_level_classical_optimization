@@ -286,3 +286,19 @@ def test_comp_basis_prob_dist(n_qubits):
     exp = 1.0
     obs = round(sum(qucs.comp_basis_prob_dist(gen_state)), 14)
     assert_equal(exp, obs)
+
+
+def test_grid_search():
+    #test that it find known optimal parameters for a graph
+    nodes = [0, 1, 2]
+    edges = [(0,1),(1,2)]
+    graph = nx.Graph()
+    graph.add_nodes_from(nodes)
+    graph.add_edges_from(edges)
+    exp = 1.05, 0.39
+    obs = qaoa.grid_search(qaoa.analitical_f_1,(graph, edges))
+    assert_equal(exp, obs)
+    #test for 2D parabola
+    exp = 0.00, 0.00
+    obs = qaoa.grid_search(lambda x, y : -x**2 + -y*2)
+    assert_equal(exp, obs)
