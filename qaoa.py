@@ -205,3 +205,39 @@ def evolution_operator(n_qubits, edges, gammas, betas):
         u_prob_hamilt_i = (-complex(0,gammas[i])*prob_hamilt(n_qubits, edges)).expm()
         evol_oper = u_mix_hamilt_i*u_prob_hamilt_i*evol_oper
     return evol_oper
+
+def grid_search(function, args=(), interval=(0.0, np.pi), step_size=0.01):
+    """
+    This method find the maximum of an analitic function with two parameters with
+    a search grid method.
+
+    Parameters
+    ----------
+    function : function
+        two parameters function which is to be maximized.
+    args : tuple, optional
+        arguments of the function in addition to the two parameters, if there's any. The default is ().
+    interval : tuple, optional
+        interval of the range of the parameters of the grid search. The default is (0.0, np.pi).
+    step_size : float, optional
+        step size of the grid search. The default is 0.01.
+
+    Returns
+    -------
+    optimal_par1 : float
+        optimal paramets 1.
+    optimal_par2 : flaot
+        optimal parameter 2.
+
+    """
+    if not isinstance(args, tuple):
+        args = (args,)
+    a_par1         = np.arange(interval[0], interval[1], step_size)
+    a_par2        = np.arange(interval[0], interval[1], step_size)
+    a_par1, a_par2 = np.meshgrid(a_par1, a_par2, indexing='xy')
+    grid_f_1 = function(a_par1, a_par2, *args)
+    result = np.where(grid_f_1 == np.amax(grid_f_1))
+    a      = list(zip(result[0],result[1]))[0]
+    optimal_par1   = a[1]*step_size
+    optimal_par2  = a[0]*step_size
+    return optimal_par1, optimal_par2
