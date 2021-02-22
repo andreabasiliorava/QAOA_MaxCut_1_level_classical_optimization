@@ -273,9 +273,6 @@ def test_common_neighbours():
     assert gr.common_neighbours(graph, 1, 3) == 1
     assert gr.common_neighbours(graph, 2, 3) == 2
 
-if __name__ == "main":
-    pass
-
 
 @given(n_qubits=st.integers(2,5))
 def test_comp_basis_prob_dist(n_qubits):
